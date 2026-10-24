@@ -452,10 +452,10 @@ html {
     }
 
     .chapter-notes .exercise-actions .reset-btn {
-        background: linear-gradient(135deg, #B0B0B0 0%, #C8C8C8 100%);
+        background: linear-gradient(135deg, #FF8C42 0%, #FFB073 100%);
     }
     .chapter-notes .exercise-actions .reset-btn:hover {
-        background: linear-gradient(135deg, #8A8A8A 0%, #A8A8A8 100%);
+        background: linear-gradient(135deg, #E06A1E 0%, #FF8C42 100%);
     }
 
     .word-tooltip {
@@ -642,10 +642,11 @@ html {
 /* === ИГРЫ === */
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+    justify-content: center;
     gap: 20px;
     margin-bottom: 25px;
-    max-width: 800px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1673,12 +1674,12 @@ body.dark-theme .global-word-popup .gwp-lang {
     box-shadow: 0 9px 22px rgba(79,168,216,0.5);
 }
 .sg-btn-secondary {
-    background: linear-gradient(135deg, #B0B0B0 0%, #C8C8C8 100%);
-    color: #FFF; box-shadow: 0 5px 15px rgba(150,150,150,0.3);
+    background: linear-gradient(135deg, #4FA8D8 0%, #7FC4E8 100%);
+    color: #FFF; box-shadow: 0 5px 15px rgba(79,168,216,0.35);
 }
 .sg-btn-secondary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 9px 22px rgba(150,150,150,0.4);
+    box-shadow: 0 9px 22px rgba(79,168,216,0.5);
 }
 /* === Иконки Font Awesome вместо эмодзи === */
 .word-card-emoji i,
@@ -2616,6 +2617,21 @@ body.dark-theme .theory-material-link {
     background: linear-gradient(135deg, #4FA8D8, #7FC4E8);
     color: #FFF; border-color: #FFF; box-shadow: 0 4px 10px rgba(79,168,216,0.4);
 }
+/* ГЛОБАЛЬНОЕ ИСПРАВЛЕНИЕ ЦЕНТРОВКИ КАРТОЧЕК */
+.games-grid, .dict-cat-grid, .phrases-grid, .ls-subsections, .sg-levels {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 260px)) !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    max-width: 900px !important;
+    margin: 0 auto 25px !important;
+}
+.dict-cat-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 180px)) !important;
+}
+.phrases-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 220px)) !important;
+}
 </style>
 </head>
 <body>
@@ -2623,12 +2639,20 @@ body.dark-theme .theory-material-link {
     <h1>🌟 Good Start</h1>
     <p class="subtitle">Учись, слушай, запоминай</p>
 </header>
-<button class="user-chip" id="user-chip" title="Сменить пользователя">
-    <span id="user-chip-emoji">👤</span>
-    <span id="user-chip-name">Загрузка...</span>
-    <span style="font-size:0.7rem;">▼</span>
-</button>
-   <nav class="main-menu" id="main-menu">
+
+<nav class="main-menu" id="main-menu" style="flex-direction: column; gap: 14px;">
+    
+    <!-- ВЕРХНИЙ РЯД: Профиль по центру -->
+    <div style="display: flex; justify-content: center; width: 100%;">
+        <div class="menu-card" data-section="profile">
+            <div class="icon" id="menu-profile-icon">🦊</div>
+            <div class="title">Профиль</div>
+            <div class="desc">Уровень и настройки</div>
+        </div>
+    </div>
+
+    <!-- НИЖНИЙ РЯД: Остальные 6 разделов в одну строку -->
+    <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; width: 100%;">
         <div class="menu-card" data-section="theory">
             <div class="icon">📖</div>
             <div class="title">Теория</div>
@@ -2638,6 +2662,16 @@ body.dark-theme .theory-material-link {
             <div class="icon">🎧</div>
             <div class="title">Аудирование</div>
             <div class="desc">Слушай и выбирай</div>
+        </div>
+        <div class="menu-card" data-section="speaking">
+            <div class="icon">👄</div>
+            <div class="title">Говорение</div>
+            <div class="desc">Учись говорить</div>
+        </div>
+        <div class="menu-card" data-section="games">
+            <div class="icon">🎮</div>
+            <div class="title">Игры</div>
+            <div class="desc">Учись играя</div>
         </div>
         <div class="menu-card" data-section="dictionary">
             <div class="icon">📚</div>
@@ -2649,28 +2683,15 @@ body.dark-theme .theory-material-link {
             <div class="title">Книги</div>
             <div class="desc">Чтение и истории</div>
         </div>
-<div class="menu-card" data-section="games">
-    <div class="icon">🎮</div>
-    <div class="title">Игры</div>
-    <div class="desc">Учись играя</div>
-</div>
-<div class="menu-card" data-section="speaking">
-    <div class="icon">🗣️</div>
-    <div class="title">Говорение</div>
-    <div class="desc">Учись говорить</div>
-</div>
-<div class="menu-card" data-section="profile">
-    <div class="icon">👤</div>
-    <div class="title">Профиль</div>
-    <div class="desc">Уровень и настройки</div>
-</div>
-    </nav>
+    </div>
+
+</nav>
 
     <main class="content" id="content">
         <div class="placeholder">
             <span class="big-icon">👆</span>
             <h2>Выбери раздел</h2>
-            <p>Нажми на одну из четырёх карточек сверху, чтобы начать.</p>
+            <p>Нажми на одну из карточек сверху, чтобы начать.</p>
         </div>
     </main>
 
@@ -2710,9 +2731,31 @@ function loadUsers() {
     try {
         const raw = localStorage.getItem(USERS_LIST_KEY);
         const arr = raw ? JSON.parse(raw) : null;
-        if (Array.isArray(arr) && arr.length > 0) return arr;
+        if (Array.isArray(arr) && arr.length > 0) {
+            // Автоматически заменяем старых серых человечков на случайного зверька
+            let changed = false;
+            arr.forEach(u => {
+                if (!u.emoji || u.emoji === '👤') {
+                    // Выбираем случайного зверька из списка
+                    u.emoji = AVATAR_CHOICES[Math.floor(Math.random() * AVATAR_CHOICES.length)];
+                    changed = true;
+                }
+            });
+            if (changed) {
+                localStorage.setItem(USERS_LIST_KEY, JSON.stringify(arr));
+            }
+            return arr;
+        }
     } catch (e) {}
-    const def = [{ id: 'default', name: 'Основной', emoji: '👤', createdAt: Date.now() }];
+    
+    // Если профилей вообще нет (первый запуск)
+    const def = [{
+        id: 'default',
+        name: 'Основной',
+        emoji: AVATAR_CHOICES[0], // 🦁 (первый в списке)
+        level: 'A1',
+        createdAt: Date.now()
+    }];
     localStorage.setItem(USERS_LIST_KEY, JSON.stringify(def));
     localStorage.setItem(ACTIVE_USER_KEY, 'default');
     return def;
@@ -2951,18 +2994,18 @@ function renderUserTiles() {
     const grid = document.getElementById('user-picker-grid');
     if (!grid) return;
     const users = loadUsers();
-
+    const activeId = localStorage.getItem(ACTIVE_USER_KEY);
     grid.innerHTML = users.map(u => {
-    // Если есть фото — показываем его, иначе эмодзи
     const avatarHtml = u.photo
-        ? `<img class="u-photo" src="${u.photo}" alt="">`
-        : `<div class="u-emoji">${u.emoji || '👤'}</div>`;
-
+        ? `<img class="u-photo" src="${escapeAttr(u.photo)}" alt="">`
+        : `<div class="u-emoji">${escapeAttr(u.emoji || '🦊')}</div>`;
+    const isActive = u.id === activeId;
     return `
-        <div class="user-tile" data-uid="${u.id}">
-            ${users.length > 1 ? `<button class="u-delete" data-delete-uid="${u.id}" title="Удалить профиль">🗑</button>` : ''}
+        <div class="user-tile ${isActive ? 'active' : ''}" data-uid="${escapeAttr(u.id)}"
+             style="${isActive ? 'border-color:#FFB073; box-shadow:0 0 0 4px rgba(255,140,66,0.35);' : ''}">
+            ${users.length > 1 ? `<button class="u-delete" data-delete-uid="${escapeAttr(u.id)}" title="Удалить профиль">🗑</button>` : ''}
             ${avatarHtml}
-            <div class="u-name">${u.name}</div>
+            <div class="u-name">${escapeAttr(u.name)}</div>
         </div>
     `;
 }).join('') + `
@@ -3468,89 +3511,181 @@ function renderProfileSection() {
     currentSection = 'profile';
     menuCards.forEach(card => card.classList.toggle('active', card.dataset.section === 'profile'));
 
-    const user = getActiveUser();
-    const level = getUserLevel();
-    const nextLevel = LD.levels[getLevelIndex(level) + 1] || null;
+    const user       = getActiveUser();
+    const level      = getUserLevel();
+    const nextLevel  = LD.levels[getLevelIndex(level) + 1] || null;
+    const passedCnt  = getPassedTheoryCount(level);
+    const totalCnt   = getTotalTheoryCount(level);
+    const progress   = totalCnt > 0 ? Math.round((passedCnt / totalCnt) * 100) : 0;
+    const isComplete = totalCnt > 0 && passedCnt >= totalCnt;
+    const levelColor = (LD.colors && LD.colors[level]) || '#4FA8D8';
+    const usersCount = loadUsers().length;
+
+    const avatarHtml = user.photo
+        ? `<img src="${escapeAttr(user.photo)}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid #FFF;box-shadow:0 8px 20px rgba(0,0,0,0.18);">`
+        : `<div style="font-size:5rem;line-height:1;">${escapeAttr(user.emoji || '🦊')}</div>`;
 
     contentEl.innerHTML = `
         <div style="max-width:760px; margin:0 auto;">
+
+            <!-- ===== Шапка профиля ===== -->
             <div style="text-align:center; margin-bottom:25px;">
-                <h2 style="color:#4a90e2; font-size:1.6rem;">👤 Личный кабинет</h2>
+                <div style="margin-bottom:10px;">${avatarHtml}</div>
+                <h2 style="color:#2E7BAE; font-size:1.8rem; margin-bottom:10px;">${escapeAttr(user.name)}</h2>
+                <span style="display:inline-block; padding:6px 18px; background:${levelColor}; color:#FFF; border-radius:14px; font-weight:bold; font-size:0.95rem; box-shadow:0 4px 12px ${levelColor}55;">
+                    Уровень ${level} · ${LD.names[level] || ''}
+                </span>
             </div>
-            <div style="background:linear-gradient(135deg,#FFFFFF,#E8F6FE); border:4px solid #FFF; border-radius:22px; padding:25px; box-shadow:0 10px 25px rgba(79,168,216,0.2); margin-bottom:22px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
-                <div style="flex-shrink:0;">
-                    ${user.photo
-                        ? `<img src="${user.photo}" alt="" style="width:90px; height:90px; border-radius:50%; border:4px solid #FFF; box-shadow:0 6px 18px rgba(79,168,216,0.3); object-fit:cover;">`
-                        : `<div style="width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#4FA8D8,#7FC4E8); display:flex; align-items:center; justify-content:center; font-size:2.5rem; border:4px solid #FFF; box-shadow:0 6px 18px rgba(79,168,216,0.3);">${user.emoji || '👤'}</div>`}
-                </div>
-                <div style="flex:1; min-width:200px;">
-                    <div style="font-size:1.5rem; font-weight:bold; color:#2E7BAE;">${user.name}</div>
-                    <div style="margin-top:10px; font-size:1rem; color:#6A6A6A;">
-                        Ваш уровень:
-                        <span style="background:${LD.colors[level]}; color:#FFF; padding:5px 14px; border-radius:12px; font-weight:bold; font-size:1.1rem; margin-left:6px;">
-                            ${level} · ${LD.names[level]}
-                        </span>
+
+            <!-- ===== Карточка уровня + смена пользователя/уровня/тест ===== -->
+            <div style="background:linear-gradient(135deg,#FFFFFF,#E8F6FE); border:4px solid #FFF; border-radius:22px; padding:22px; box-shadow:0 10px 25px rgba(79,168,216,0.2); margin-bottom:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px;">
+                    <div>
+                        <h3 style="color:#2E7BAE; font-size:1.1rem; margin-bottom:4px;">📊 Твой уровень</h3>
+                        <p style="color:#6A6A6A; font-size:0.9rem;">Сменить вручную или проверить знания</p>
+                    </div>
+                    
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <!-- Кнопка теста на следующий уровень (если он есть) -->
+                        ${nextLevel ? `
+                            <button id="profile-test-level" style="padding:10px 18px; background:linear-gradient(135deg,#4CAF50,#81C784); color:#FFF; border:3px solid #FFF; border-radius:15px; font-family:inherit; font-weight:bold; font-size:0.9rem; cursor:pointer; box-shadow:0 4px 12px rgba(76,175,80,0.4);">
+                                🎯 Тест на ${nextLevel}
+                            </button>
+                        ` : ''}
+
+                        <button id="profile-change-level" style="padding:10px 18px; background:linear-gradient(135deg,#FF8C42,#FFB073); color:#FFF; border:3px solid #FFF; border-radius:15px; font-family:inherit; font-weight:bold; font-size:0.9rem; cursor:pointer; box-shadow:0 4px 12px rgba(255,140,66,0.4);">
+                            🔄 Сменить вручную
+                        </button>
+                        
+                        ${usersCount > 1 ? `
+                            <button id="profile-change-user" style="padding:10px 18px; background:linear-gradient(135deg,#9C27B0,#BA68C8); color:#FFF; border:3px solid #FFF; border-radius:15px; font-family:inherit; font-weight:bold; font-size:0.9rem; cursor:pointer; box-shadow:0 4px 12px rgba(156,39,176,0.4);">
+                                👥 Сменить пользователя
+                            </button>
+                        ` : ''}
                     </div>
                 </div>
             </div>
-            <div style="background:linear-gradient(135deg,#FFFFFF,#E8F6FE); border:4px solid #FFF; border-radius:22px; padding:25px; box-shadow:0 10px 25px rgba(79,168,216,0.2); margin-bottom:22px;">
-                <h3 style="color:#2E7BAE; font-size:1.15rem; margin-bottom:14px;">🎯 Уровень и тесты</h3>
-                <p style="color:#6A6A6A; margin-bottom:18px; font-size:0.95rem;">
-                    Сейчас вам доступны материалы <b>${level}</b>${nextLevel ? ` и <b>${nextLevel}</b> (помечены 🔥 как «сложно»)` : ''}.
+
+            <!-- ===== Прогресс ===== -->
+            <div style="background:linear-gradient(135deg,#FFFFFF,#E8F6FE); border:4px solid #FFF; border-radius:22px; padding:25px; box-shadow:0 10px 25px rgba(79,168,216,0.2); margin-bottom:18px;">
+                <h3 style="color:#2E7BAE; font-size:1.15rem; margin-bottom:8px;">📈 Прогресс обучения</h3>
+                <p style="color:#6A6A6A; margin-bottom:16px; font-size:0.95rem;">
+                    Сдано тестов по теории: <b>${passedCnt}</b> из <b>${totalCnt}</b>
                 </p>
-                ${nextLevel ? `
-                    <button id="profile-take-test" style="padding:14px 24px; background:linear-gradient(135deg,#FF8C42,#FFB073); color:#FFF; border:3px solid #FFF; border-radius:18px; font-family:inherit; font-weight:bold; font-size:1rem; cursor:pointer; box-shadow:0 6px 18px rgba(255,140,66,0.4); margin-right:10px;">
-                        📝 Сдать тест на ${nextLevel}
-                    </button>
-                ` : '<p style="color:#4CAF50; font-weight:bold;">🏆 Вы на максимальном уровне!</p>'}
-                <button id="profile-change-manually" style="padding:14px 24px; background:linear-gradient(135deg,#B0B0B0,#C8C8C8); color:#FFF; border:3px solid #FFF; border-radius:18px; font-family:inherit; font-weight:bold; font-size:1rem; cursor:pointer; box-shadow:0 6px 18px rgba(150,150,150,0.3); margin-top:10px;">
-                    ⚙️ Изменить уровень вручную
+
+                <div style="height:22px; background:#E0F2FC; border-radius:12px; overflow:hidden; margin-bottom:18px; position:relative; box-shadow: inset 0 2px 4px rgba(0,0,0,0.08);">
+                    <div style="height:100%; width:${progress}%; transition:width 0.6s; border-radius:12px; background:linear-gradient(90deg, ${isComplete ? '#4CAF50,#81C784' : '#4FA8D8,#7FC4E8'}); box-shadow:0 0 12px ${isComplete ? 'rgba(76,175,80,0.55)' : 'rgba(79,168,216,0.5)'};"></div>
+                    <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:bold; color:#2E7BAE; text-shadow:0 1px 2px #FFF;">${progress}%</div>
+                </div>
+
+                ${isComplete && nextLevel ? `
+                    <div style="background:linear-gradient(135deg,#FFE9B8,#FFD6A8); border:3px solid #FFB073; border-radius:16px; padding:18px; text-align:center; animation:profilePulse 2.2s ease infinite;">
+                        <div style="font-size:1.15rem; font-weight:bold; color:#E06A1E; margin-bottom:8px;">
+                            🎉 Пора переходить на следующий уровень!
+                        </div>
+                        <p style="font-size:0.9rem; color:#7A5A2A; margin-bottom:14px; line-height:1.5;">
+                            Ты сдал все тесты уровня <b>${level}</b>.<br>
+                            Пройди итоговый тест на уровень <b>${nextLevel}</b>, чтобы двигаться дальше.
+                        </p>
+                        <button id="profile-levelup-test" style="padding:14px 32px; background:linear-gradient(135deg,#4CAF50,#81C784); color:#FFF; border:3px solid #FFF; border-radius:16px; font-family:inherit; font-weight:bold; font-size:1rem; cursor:pointer; box-shadow:0 6px 18px rgba(76,175,80,0.5); transition:all 0.2s;">
+                            🎯 Пройти итоговый тест на ${nextLevel}
+                        </button>
+                    </div>
+                ` : ''}
+
+                ${isComplete && !nextLevel ? `
+                    <div style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2); border:3px solid #FFB073; border-radius:16px; padding:18px; text-align:center; color:#E06A1E; font-weight:bold; font-size:1.05rem;">
+                        🏆 Поздравляем! Ты достиг максимального уровня — ${level}!
+                    </div>
+                ` : ''}
+
+                ${!isComplete && nextLevel ? `
+                    <p style="color:#999; font-size:0.88rem; text-align:center; line-height:1.5;">
+                        📚 Пройди все тесты по теории на уровне <b>${level}</b>,<br>
+                        чтобы открыть переход на <b>${nextLevel}</b>.
+                    </p>
+                ` : ''}
+            </div>
+
+            <!-- ===== Опасная зона ===== -->
+            <div style="background:linear-gradient(135deg,#FFF3F3,#FFE0E0); border:4px solid #FFF; border-radius:22px; padding:25px; box-shadow:0 10px 25px rgba(229,57,53,0.15);">
+                <h3 style="color:#C62828; font-size:1.15rem; margin-bottom:14px;">🗑 Опасная зона</h3>
+                <p style="color:#6A6A6A; margin-bottom:18px; font-size:0.95rem;">
+                    Удаление профиля <b>«${escapeAttr(user.name)}»</b> уничтожит все его слова, прогресс и настройки.
+                </p>
+                <button id="profile-delete-user" style="padding:14px 24px; background:linear-gradient(135deg,#E53935,#EF5350); color:#FFF; border:3px solid #FFF; border-radius:18px; font-family:inherit; font-weight:bold; font-size:1rem; cursor:pointer; box-shadow:0 6px 18px rgba(229,57,53,0.4); width:100%;">
+                    🗑 Удалить профиль
                 </button>
             </div>
-            <div style="background:linear-gradient(135deg,#FFFFFF,#E8F6FE); border:4px solid #FFF; border-radius:22px; padding:25px; box-shadow:0 10px 25px rgba(79,168,216,0.2); margin-top:22px;">
-                <h3 style="color:#2E7BAE; font-size:1.15rem; margin-bottom:14px;">📈 Прогресс обучения</h3>
-                <p style="color:#6A6A6A; margin-bottom:18px; font-size:0.95rem;">
-                    Сдано тестов по теории: <b>${getPassedTheoryCount(level)}</b> из <b>${getTotalTheoryCount(level)}</b>
-                </p>
-                <div style="height: 16px; background: #E0F2FC; border-radius: 8px; overflow: hidden; margin-bottom: 18px;">
-                    <div style="height: 100%; background: linear-gradient(90deg, #4CAF50, #81C784); width: ${(getPassedTheoryCount(level) / getTotalTheoryCount(level)) * 100}%; transition: width 0.5s;"></div>
-                </div>
-               ${nextLevel && getPassedTheoryCount(level) >= getTotalTheoryCount(level) ? `
-               <button id="profile-next-level" style="padding:14px 24px; background:linear-gradient(135deg,#4CAF50,#81C784); color:#FFF; border:3px solid #FFF; border-radius:18px; font-family:inherit; font-weight:bold; font-size:1rem; cursor:pointer; box-shadow:0 6px 18px rgba(76,175,80,0.4); width: 100%;">
-                    🚀 Все тесты пройдены! Перейти на ${nextLevel}
-               </button>
-        ` : ''}
-            </div>
         </div>
+
+        <style>
+            @keyframes profilePulse {
+                0%,100% { transform: scale(1); }
+                50%     { transform: scale(1.015); }
+            }
+        </style>
     `;
 
-    const nextLevelBtn = document.getElementById('profile-next-level');
-    if (nextLevelBtn) {
-        nextLevelBtn.addEventListener('click', () => {
-            setUserLevel(nextLevel);
-            updateUserChip(getActiveUser());
-            renderProfileSection();
+    // --- Обработчик кнопки "Тест на [Уровень]" в карточке уровня ---
+    const testLevelBtn = document.getElementById('profile-test-level');
+    if (testLevelBtn) {
+        testLevelBtn.addEventListener('click', () => {
+            levelTestState = {
+                mode: 'upgrade',
+                currentLevelIdx: getLevelIndex(nextLevel),
+                currentQIdx: 0,
+                correct: 0,
+                passedLevels: []
+            };
+            renderLevelTestIntro();
         });
     }
-   
- document.querySelectorAll('.profile-quick-btn').forEach(btn => {
-        btn.addEventListener('click', () => showSection(btn.dataset.go));
-    });
 
-    const testBtn = document.getElementById('profile-take-test');
-    if (testBtn) testBtn.addEventListener('click', () => {
-        levelTestState = {
-            mode: 'upgrade',
-            currentLevelIdx: getLevelIndex(nextLevel),
-            currentQIdx: 0,
-            correct: 0,
-            passedLevels: []
-        };
-        renderLevelTestIntro();
-    });
-
-    document.getElementById('profile-change-manually').addEventListener('click', () => {
+    // --- Смена уровня ---
+    document.getElementById('profile-change-level').addEventListener('click', () => {
         showLevelChangeModal(level);
+    });
+
+    // --- Смена пользователя ---
+    const changeUserBtn = document.getElementById('profile-change-user');
+    if (changeUserBtn) {
+        changeUserBtn.addEventListener('click', () => {
+            showUserPicker();
+        });
+    }
+
+    // --- Итоговый тест из баннера (внизу) ---
+    const levelUpBtn = document.getElementById('profile-levelup-test');
+    if (levelUpBtn) {
+        levelUpBtn.addEventListener('click', () => {
+            levelTestState = {
+                mode: 'upgrade',
+                currentLevelIdx: getLevelIndex(nextLevel),
+                currentQIdx: 0,
+                correct: 0,
+                passedLevels: []
+            };
+            renderLevelTestIntro();
+        });
+    }
+
+    // --- Удаление профиля ---
+    document.getElementById('profile-delete-user').addEventListener('click', () => {
+        const u = getActiveUser();
+        const allUsers = loadUsers();
+        if (allUsers.length <= 1) {
+            alert('Нельзя удалить единственный профиль. Сначала создай новый.');
+            return;
+        }
+        if (!confirm(`Удалить профиль «${u.name}»? Все его данные будут потеряны безвозвратно.`)) return;
+
+        const remaining = allUsers.filter(x => x.id !== u.id);
+        if (removeUser(u.id)) {
+            invalidateActiveUserCache();
+            localStorage.setItem(ACTIVE_USER_KEY, remaining[0].id);
+            setActiveUser(remaining[0].id);
+        }
     });
 }
 function showLevelChangeModal(currentLevel) {
@@ -4451,15 +4586,11 @@ function finishTheoryTest() {
 // ИНИЦИАЛИЗАЦИЯ
 // ============================================================
 function initUserSystem() {
-    const u = getActiveUser();
+    const users = loadUsers();          // один вызов
+    const u = getActiveUser();          // использует тот же кэш
     updateUserChip(u);
 
-    const chip = document.getElementById('user-chip');
-    if (chip) {
-        chip.addEventListener('click', () => showUserPicker());
-    }
-
-    if (!localStorage.getItem(PICKER_SEEN_KEY)) {
+    if (!localStorage.getItem(PICKER_SEEN_KEY) || users.length > 1) {
         showUserPicker();
     }
 }
@@ -4469,21 +4600,16 @@ function initUserSystem() {
  * Если у пользователя есть фото — показывает его, иначе эмодзи.
  */
 function updateUserChip(u) {
-    const chipEmoji = document.getElementById('user-chip-emoji');
-    const chipName = document.getElementById('user-chip-name');
-    if (!chipEmoji || !chipName) return;
+    const menuIcon = document.getElementById('menu-profile-icon');
+    if (!menuIcon) return;
 
+    // Если у пользователя есть загруженное фото — показываем его
     if (u.photo) {
-        chipEmoji.innerHTML = `<img class="u-photo-small" src="${u.photo}" alt="">`;
+        menuIcon.innerHTML = `<img src="${escapeAttr(u.photo)}" style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover; border: 3px solid #FFB073; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">`;
     } else {
-        chipEmoji.textContent = u.emoji || '👤';
+        // Иначе показываем эмодзи (или лису по умолчанию)
+        menuIcon.textContent = u.emoji || '🦊';
     }
-
-    // Бейдж уровня (если есть)
-    const lvl = u.level || 'A1';
-    const lvlColors = { A1: '#4CAF50', A2: '#2196F3', B1: '#FF9800', B2: '#E91E63' };
-    const color = lvlColors[lvl] || '#666';
-    chipName.innerHTML = `${u.name} <span style="font-size:0.7rem; background:${color}; color:#FFF; padding:1px 7px; border-radius:8px; margin-left:4px;">${lvl}</span>`;
 }
 // ============================================================
 // ТЕМА: СВЕТЛАЯ / ТЁМНАЯ НЕОНОВАЯ
@@ -9654,6 +9780,36 @@ cozy_life: [
         { en: "write down", ru: "записывать", emoji: "✍️" }
     ],
 };
+
+// ============================================================
+// ЗАЩИТА ОТ XSS В ПОЛЕ emoji
+// ============================================================
+// Поле emoji может содержать:
+//   ✅ эмодзи        — "🐱"  (безопасно, не трогаем)
+//   ✅ FA-иконку     — '<i class="fa-solid fa-table"></i>'  (разрешено)
+//   ⚠️ произвольный HTML — '<img onerror=...>' (экранируем)
+(function sanitizeEmojiFields() {
+    const FA_PATTERN = /^<i class="fa-(solid|regular|brands) fa-[a-z0-9-]+"( aria-hidden="true")?><\/i>$/i;
+    function escapeHtml(s) {
+        return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+    function fix(obj) {
+        if (!obj || typeof obj !== 'object') return;
+        if (typeof obj.emoji === 'string' && obj.emoji && !FA_PATTERN.test(obj.emoji)) {
+            obj.emoji = escapeHtml(obj.emoji);
+        }
+        for (const key in obj) {
+            if (key !== 'emoji') fix(obj[key]);
+        }
+    }
+    if (typeof wordsData === 'object' && wordsData) {
+        for (const cat in wordsData) fix(wordsData[cat]);
+    }
+})();
+
 // ============================================================
 // ЗАГАДКИ: слово (lowercase) → одно слово-подсказка
 // ============================================================
@@ -10780,26 +10936,38 @@ function numberValue(str) {
 
     // Если последняя часть — порядковое слово
     const last = parts[parts.length - 1];
-    if (ORDINAL_BASE_MAP[last] !== undefined) {
-        let total = 0;
-        let current = 0;
-        for (let i = 0; i < parts.length - 1; i++) {
-            const p = parts[i];
-            if (NUMBER_WORDS_MAP[p] !== undefined) {
-                const v = NUMBER_WORDS_MAP[p];
-                if (v === 100) {
-                    current = (current || 1) * 100;
-                } else if (v === 1000) {
-                    total += (current || 1) * 1000;
-                    current = 0;
-                } else {
-                    current += v;
-                }
+if (ORDINAL_BASE_MAP[last] !== undefined) {
+    let total = 0;
+    let current = 0;
+    for (let i = 0; i < parts.length - 1; i++) {
+        const p = parts[i];
+        if (NUMBER_WORDS_MAP[p] !== undefined) {
+            const v = NUMBER_WORDS_MAP[p];
+            if (v === 100) {
+                current = (current || 1) * 100;
+            } else if (v === 1000) {
+                total += (current || 1) * 1000;
+                current = 0;
+            } else {
+                current += v;
             }
         }
-        total += current + ORDINAL_BASE_MAP[last];
-        return total;
     }
+    const lastVal = ORDINAL_BASE_MAP[last];
+
+    // Если последнее слово — "крупное" порядковое (hundredth, thousandth),
+    // то предыдущие числа являются МНОЖИТЕЛЕМ, а не слагаемым:
+    //   "one hundredth" → 1 × 100 = 100
+    //   "two hundredth" → 2 × 100 = 200
+    if (lastVal >= 100) {
+        const multiplier = (total + current) || 1;
+        return multiplier * lastVal;
+    }
+
+    // Обычный случай: "twenty-first" → 20 + 1 = 21
+    total += current + lastVal;
+    return total;
+}
 
     // Количественные: "one", "twenty-one", "one hundred twenty-three"
     let total = 0;
@@ -11147,6 +11315,8 @@ let currentChapterIndex = 0;
 let currentSelection = [];
 let sidebarOpen = false;
 let currentDictCategory = 'my';
+let currentSection = null; 
+let speakingAudience = null;
 
 const contentEl = document.getElementById('content');
 const menuCards = document.querySelectorAll('.menu-card');
@@ -13301,7 +13471,7 @@ function renderLearnedContent(container) {
             <button id="reset-all-learned" style="
                 margin-top: 12px;
                 padding: 8px 18px;
-                background: linear-gradient(135deg, #B0B0B0 0%, #C8C8C8 100%);
+                background: linear-gradient(135deg, #FF8C42 0%, #FFB073 100%);
                 color: #FFF;
                 border: 3px solid #FFF;
                 border-radius: 15px;
@@ -13309,7 +13479,7 @@ function renderLearnedContent(container) {
                 font-weight: bold;
                 font-size: 0.85rem;
                 cursor: pointer;
-                box-shadow: 0 4px 10px rgba(150,150,150,0.3);
+                box-shadow: 0 4px 10px rgba(255,140,66,0.4);
             ">🔄 Сбросить весь прогресс</button>
         </div>
         <div class="words-grid">
@@ -13446,14 +13616,14 @@ const placeholders = {
 // ============================================================
 // ИГРЫ
 // ============================================================
-let currentGameAudience = null;      // null | 'kids' | 'adults'
+// (удалено — теперь всё по уровню)
 let currentGameType = null;
-let currentGameSource = null;        // {type:'my'|'category'|'all', categoryId?}
+let currentGameSource = null;
+let currentGameAudience = null;        // {type:'my'|'category'|'all', categoryId?}
 
 // --- Помощники для правильной навигации "Назад" ---
 function goBackToGamesList() {
-    if (currentGameAudience === 'adults') renderAdultsGameList();
-    else renderKidsGameList();
+    renderGamesListForUser();
 }
 
 function goBackToSourcePicker(gameId) {
@@ -13897,6 +14067,7 @@ function getGamesForUserLevel() {
 }
 
 function renderGamesListForUser() {
+    currentGameAudience = null;
     const level = getUserLevel();
     const games = getGamesForUserLevel();
     const levelColor = (window.levelData && window.levelData.colors && window.levelData.colors[level]) || '#4FA8D8';
@@ -13944,10 +14115,10 @@ function handleGameClick(gameId) {
     if (gameId === 'preposition') { renderPhrasalGame(); return; }
 
     // Виселица
-    if (gameId === 'hangman') {
+if (gameId === 'hangman') {
+    currentGameAudience = 'adults';
     currentGameSource = { type: 'words', isAdults: true, mode: 'words' };
-    if (getUserLevel() === 'A1') renderHangmanModePicker();
-    else renderAdultsHangmanModePicker();
+    renderAdultsHangmanModePicker();
     return;
 }
 
@@ -13995,14 +14166,8 @@ const kidsGames = [
     { id: 'colors', icon: '🌈', title: 'Цвета', desc: 'Учи цвета играя' },
     { id: 'numbers', icon: '🔢', title: 'Числа', desc: 'Учи числа и счёт' }
 ];
-function renderKidsGameList() {
-    currentGameAudience = 'kids';
-    renderGamesListForUser();
-}
-function renderAdultsGameList() {
-    currentGameAudience = 'adults';
-    renderGamesListForUser();
-}
+function renderKidsGameList() { renderGamesListForUser(); }
+function renderAdultsGameList() { renderGamesListForUser(); }
 // Экран выбора «Слова / Фразы» (для flashcards, choose-translation, build-word)
 // ============================================================
 // ВИСЕЛИЦА ДЛЯ ВЗРОСЛЫХ: выбор режима «Компьютер / Друг»
@@ -14156,8 +14321,9 @@ function showAdultsSourceCategoryPicker(gameId, kind = 'words') {
             <h3 style="color:#E06A1E; font-size:1.1rem;">Выбери категорию:</h3>
         </div>
         <div class="games-grid">
-            ${wordSubCategories
-                .filter(cat => canAccessLevel(getCategoryLevel(cat.id))) // ← ФИЛЬТР
+            ${[...basicSubCategories, ...wordSubCategories]
+                .filter(cat => canAccessLevel(getCategoryLevel(cat.id)))
+                .filter(cat => !['numbers_basic', 'ordinal_numbers'].includes(cat.id))
                 .map(cat => {
                 const count = (wordsData[cat.id] || []).length;
                 return `
@@ -14204,10 +14370,14 @@ if (mode === 'phrases') {
     words = [...(wordsData[source.categoryId] || [])];
 } else {
     // «Все темы» / «all» в режиме слов:
-    // тематические слова + Мой словарик + фразы (тоже лексика)
+    // тематические слова + База (для A1) + Мой словарик + фразы
     words = [...getAdultsWordsFromThemes()];
+    const userLevel = getUserLevel();
+    if (userLevel === 'A1' || userLevel === 'A2') {
+        words = words.concat(getWordsFromSource({ type: 'all' }));
+    }
     words = words.concat(getAdultsMyDictWords());
-    words = words.concat(getAdultsPhrasesAsWords());  // ← НОВОЕ
+    words = words.concat(getAdultsPhrasesAsWords());
 }
 
     if (!words || words.length === 0) {
@@ -14666,14 +14836,14 @@ function startTrainingSession(words) {
                 transform: translateY(-2px);
                 box-shadow: 0 9px 22px rgba(79,168,216,0.5);
             }
-            .tr-btn-secondary {
-                background: linear-gradient(135deg, #B0B0B0 0%, #C8C8C8 100%);
+                       .tr-btn-secondary {
+                background: linear-gradient(135deg, #4FA8D8 0%, #7FC4E8 100%);
                 color: #FFF;
-                box-shadow: 0 5px 15px rgba(150,150,150,0.3);
+                box-shadow: 0 5px 15px rgba(79,168,216,0.35);
             }
             .tr-btn-secondary:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 9px 22px rgba(150,150,150,0.4);
+                box-shadow: 0 9px 22px rgba(79,168,216,0.5);
             }
         </style>
     `;
@@ -15760,7 +15930,8 @@ function renderHangmanModePicker() {
     wrapper.querySelectorAll('[data-mode]').forEach(card => {
         card.addEventListener('click', () => {
             if (card.dataset.mode === 'computer') {
-                renderGameSourcePicker('hangman');
+                // Универсальный выбор источника — работает для всех уровней
+                renderAdultsSourceForSpecificGame('hangman', 'words');
             } else {
                 renderHangmanFriendSetup();
             }
@@ -16384,13 +16555,13 @@ function renderHangmanBoard() {
                             font-family:inherit; font-weight:bold; font-size:0.95rem;
                             cursor:pointer; box-shadow:0 5px 15px rgba(79,168,216,0.3);
                         ">🔄 Ещё раз</button>
-                        <button id="hm-back2" style="
-                            padding:12px 22px;
-                            background: linear-gradient(135deg, #B0B0B0 0%, #C8C8C8 100%);
-                            color:#FFF; border:3px solid #FFF; border-radius:18px;
-                            font-family:inherit; font-weight:bold; font-size:0.95rem;
-                            cursor:pointer; box-shadow:0 5px 15px rgba(150,150,150,0.3);
-                        ">← Назад</button>
+              <button id="hm-back2" style="
+            padding:12px 22px;
+            background: linear-gradient(135deg, #4FA8D8 0%, #7FC4E8 100%);
+            color:#FFF; border:3px solid #FFF; border-radius:18px;
+            font-family:inherit; font-weight:bold; font-size:0.95rem;
+            cursor:pointer; box-shadow:0 5px 15px rgba(79,168,216,0.35);
+        ">← Назад</button>
                     </div>
                 </div>
             ` : ''}
@@ -16926,12 +17097,12 @@ function renderBuildWordComplete() {
                     font-family:inherit; font-weight:bold; font-size:0.95rem;
                     cursor:pointer; box-shadow:0 5px 15px rgba(79,168,216,0.3);
                 ">🔄 Ещё раз</button>
-                <button id="bw-back" style="
+                 <button id="bw-back" style="
                     padding:12px 22px;
-                    background: linear-gradient(135deg, #B0B0B0 0%, #C8C8C8 100%);
+                    background: linear-gradient(135deg, #4FA8D8 0%, #7FC4E8 100%);
                     color:#FFF; border:3px solid #FFF; border-radius:18px;
                     font-family:inherit; font-weight:bold; font-size:0.95rem;
-                    cursor:pointer; box-shadow:0 5px 15px rgba(150,150,150,0.3);
+                    cursor:pointer; box-shadow:0 5px 15px rgba(79,168,216,0.35);
                 ">← К выбору источника</button>
             </div>
         </div>
@@ -18193,24 +18364,27 @@ if (level === 1) {
 
             if (isCorrect) {
                 if (!item.isRepeat) s.correctFirstTry++;
-                // Убрали speakWord(item.en) отсюда!
                 s.queue.shift();
                 setTimeout(() => { s.answered = false; renderCtQuestion(); }, 900);
-} else {
-    item.isRepeat = true;
-
-    // На 1 уровне при выборе ответа озвучку не включаем
-    if (s.level !== 1) {
-        speakWord(item.en);
-    }
-
-    setTimeout(() => {
-        s.queue.shift();
-        s.queue.push(item);
-        s.answered = false;
-        renderCtQuestion();
-    }, 1500);
-}
+            } else {
+                item.isRepeat = true;
+                if (s.level !== 1) {
+                    speakWord(item.en);
+                    setTimeout(() => {
+                        s.queue.shift();
+                        s.queue.push(item);
+                        s.answered = false;
+                        renderCtQuestion();
+                    }, 2200);
+                } else {
+                    setTimeout(() => {
+                        s.queue.shift();
+                        s.queue.push(item);
+                        s.answered = false;
+                        renderCtQuestion();
+                    }, 1500);
+                }
+            }
         });
     });
     // === Кнопка «Уже изучено» ===
@@ -20881,25 +21055,25 @@ function renderShapesQuestion() {
 if (isCorrect) {
     if (!item.isRepeat) s.correctFirstTry++;
 
-    // Озвучка после правильного ответа на 2 и 3 уровнях
+    // Озвучка после правильного ответа на 2 и 3 уровнях — ждём, пока диктор договорит
     if (s.level === 2 || s.level === 3) {
         speakWord(correctAnswer);
+        s.queue.shift();
+        setTimeout(() => { s.answered = false; renderShapesQuestion(); }, 1800);
+    } else {
+        s.queue.shift();
+        setTimeout(() => { s.answered = false; renderShapesQuestion(); }, 850);
     }
-
-    s.queue.shift();
-    setTimeout(() => { s.answered = false; renderShapesQuestion(); }, 850);
 } else {
-                           
-                item.isRepeat = true; // Запоминаем, что была ошибка
-                speakWord(correctAnswer); // При ошибке всегда озвучиваем правильный ответ
-                
-                setTimeout(() => {
-                    s.queue.shift(); // Убираем с начала
-                    s.queue.push(item); // И ставим в конец очереди
-                    s.answered = false;
-                    renderShapesQuestion();
-                }, 1400);
-            }
+    item.isRepeat = true;
+    speakWord(correctAnswer);
+    setTimeout(() => {
+        s.queue.shift();
+        s.queue.push(item);
+        s.answered = false;
+        renderShapesQuestion();
+    }, 2200);
+}
         });
     });
 // === Голосовой ввод: уровни 2 и 4 (ответ — название) ===
@@ -21219,26 +21393,27 @@ function renderColorsQuestion() {
                 if (options[j] === correctAnswer) b.classList.add('correct');
                 else if (j === i) b.classList.add('wrong');
             });
-                 if (isCorrect) {
-                  if (!item.isRepeat) s.correctFirstTry++;
-
-                 // Озвучка после правильного ответа на 2, 3 и 4 уровнях
-                     if (s.level >= 2) {
-                      speakWord(correctAnswer);
-               }
-
-          s.queue.shift();
-         setTimeout(() => { s.answered = false; renderColorsQuestion(); }, 900);
-        } else {
-                item.isRepeat = true;
+        if (isCorrect) {
+            if (!item.isRepeat) s.correctFirstTry++;
+            // Озвучка после правильного ответа на 2 и 3 уровнях — ждём диктора
+            if (s.level >= 2) {
                 speakWord(correctAnswer);
-                setTimeout(() => {
-                    s.queue.shift();
-                    s.queue.push(item);
-                    s.answered = false;
-                    renderColorsQuestion();
-                }, 1500);
+                s.queue.shift();
+                setTimeout(() => { s.answered = false; renderColorsQuestion(); }, 1800);
+            } else {
+                s.queue.shift();
+                setTimeout(() => { s.answered = false; renderColorsQuestion(); }, 900);
             }
+        } else {
+            item.isRepeat = true;
+            speakWord(correctAnswer);
+            setTimeout(() => {
+                s.queue.shift();
+                s.queue.push(item);
+                s.answered = false;
+                renderColorsQuestion();
+            }, 2200);
+        }
         });
     });
 
@@ -21608,21 +21783,26 @@ body.dark-theme .bw-hint-card {
                 else if (j === i) b.classList.add('wrong');
             });
 
-            if (isCorrect) {
+             if (isCorrect) {
                 if (!item.isRepeat) s.correctFirstTry++;
-                s.queue.shift();
-                setTimeout(() => { s.answered = false; renderNumbersQuestion(); }, 900);
+                // На уровне 1 после ответа озвучиваем слово — даём диктору договорить
+                if (s.level === 1) {
+                    speakWord(item.en);
+                    s.queue.shift();
+                    setTimeout(() => { s.answered = false; renderNumbersQuestion(); }, 1800);
+                } else {
+                    s.queue.shift();
+                    setTimeout(() => { s.answered = false; renderNumbersQuestion(); }, 900);
+                }
             } else {
                 item.isRepeat = true;
-                // На уровне 2 слово уже звучало при появлении вопроса — не повторяем.
-                // На уровнях 1 и 3 озвучиваем как подсказку правильного ответа.
                 if (s.level !== 2) speakWord(item.en);
                 setTimeout(() => {
                     s.queue.shift();
                     s.queue.push(item);
                     s.answered = false;
                     renderNumbersQuestion();
-                }, s.level === 2 ? 900 : 1500);
+                }, s.level === 2 ? 900 : 2200);
             }
         });
     });
@@ -21735,10 +21915,20 @@ function finishNumbersLevel() {
 // ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ
 // ============================================================
 function showSection(sectionKey) {
+    if (sectionKey !== 'listening') {
+        if (typeof cleanupListeningHotkeys === 'function') cleanupListeningHotkeys();
+        if (typeof lsStopPlayer === 'function') lsStopPlayer();
+        if (typeof lsStoryState !== 'undefined') lsStoryState = null;
+        if (typeof lsWordState !== 'undefined') lsWordState = null;
+        if (typeof lsPhraseState !== 'undefined') lsPhraseState = null;
+        if (typeof lsFillState !== 'undefined') lsFillState = null;
+        if (typeof lsArrangeState !== 'undefined') lsArrangeState = null;
+        if (typeof lsPlayer !== 'undefined' && lsPlayer) lsPlayer.onUpdateUI = null;
+    }
+    localStorage.setItem('saved_section', sectionKey);
     if (sectionKey === 'speaking') { renderSpeakingSection(); return; }
     if (sectionKey === 'theory') { renderTheorySection(); return; }
     if (sectionKey === 'profile') { renderProfileSection(); return; }
-    localStorage.setItem('saved_section', sectionKey);
     if (sectionKey === 'books') { renderBooksSection(); return; }
     if (sectionKey === 'dictionary') { renderDictionarySection(); return; }
     if (sectionKey === 'games') { renderGamesSection(); return; }
@@ -22279,14 +22469,14 @@ function lsSpeak(text, lang, btn, randomGender = false) {
     } else {
         const targetLang = lang || savedAccent;
         utter.lang = targetLang;
+        
+        // ЖЕСТКО привязываем скорость к ползунку
         utter.rate = ttsRate;
         
         if (randomGender) {
-            // Берем случайный мужской или женский
             const v = getRandomVoice(targetLang);
             if (v) utter.voice = v;
         } else {
-            // Стандартный голос
             const voices = window.speechSynthesis.getVoices();
             const pref = voices.find(v => v.lang === targetLang);
             if (pref) utter.voice = pref;
@@ -23225,14 +23415,17 @@ function lsCalcLevelByWords(phrase) {
 
 // Итоговый уровень фразы: ручной override > расчёт по словам > fallback по категории
 function lsResolvePhraseLevel(en, cat, explicitLevel) {
-    const key = String(en || '').toLowerCase().trim().replace(/[.!?…]+$/, '');
-    if (typeof PHRASE_LEVEL_OVERRIDES !== 'undefined' && PHRASE_LEVEL_OVERRIDES[key]) {
-        return PHRASE_LEVEL_OVERRIDES[key];
+    const raw = String(en || '').toLowerCase().trim();
+    const stripped = raw.replace(/[.!?…]+$/, '');
+    
+    if (typeof PHRASE_LEVEL_OVERRIDES !== 'undefined') {
+        if (PHRASE_LEVEL_OVERRIDES[raw]) return PHRASE_LEVEL_OVERRIDES[raw];
+        if (PHRASE_LEVEL_OVERRIDES[stripped]) return PHRASE_LEVEL_OVERRIDES[stripped];
     }
-    const byWords = lsCalcLevelByWords(key);
+    
+    const byWords = lsCalcLevelByWords(stripped);
     if (byWords) return byWords;
     if (explicitLevel) return explicitLevel;
-    // fallback — та же функция, что была в lsGetPhrases
     return getLevelByCatForPhrase(cat);
 }
 
@@ -23478,7 +23671,14 @@ function renderLsWordQuestion() {
     s.answered = false;
     const item = s.queue[0];
 
-    const others = s.pool.filter(w => w.en.toLowerCase() !== item.en.toLowerCase());
+    const seenRu = new Set([item.ru.toLowerCase()]);
+    const others = s.pool.filter(w => {
+        if (w.en.toLowerCase() === item.en.toLowerCase()) return false;
+        const ruKey = (w.ru || '').toLowerCase();
+        if (!ruKey || seenRu.has(ruKey)) return false;
+        seenRu.add(ruKey);
+        return true;
+    });
     const wrongs = lsShuffle(others).slice(0, 3);
     const options = lsShuffle([
         { ru: item.ru, correct: true },
@@ -23498,8 +23698,12 @@ function renderLsWordQuestion() {
         </div>
         <div class="sg-container">
             <div class="sg-prompt-card">
-                <div class="sg-audio-prompt">
+                <div class="sg-audio-prompt" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
                     <button class="sg-play-btn" id="ls-play">🔊 Прослушать</button>
+                    <button class="sg-btn-secondary" id="ls-show-text-btn">👁 Показать слово</button>
+                </div>
+                <div id="ls-hidden-text" style="display:none; margin-top:15px; font-size:1.5rem; font-weight:bold; color:#2E7BAE;">
+                    ${item.en}
                 </div>
                 <div class="sg-question">Что означает это слово?</div>
             </div>
@@ -23508,10 +23712,20 @@ function renderLsWordQuestion() {
             </div>
         </div>
     `;
+    // Автоозвучка ОТКЛЮЧЕНА — только по кнопке «Прослушать»
+    document.getElementById('ls-play').addEventListener('click', () => lsSpeak(item.en, null, null, true));
 
-    const playFn = () => lsSpeak(item.en, null, null, true);
-    setTimeout(playFn, 300);
-    document.getElementById('ls-play').addEventListener('click', playFn);
+    // Кнопка "Показать текст"
+    document.getElementById('ls-show-text-btn').addEventListener('click', function() {
+        const txt = document.getElementById('ls-hidden-text');
+        if (txt.style.display === 'none') {
+            txt.style.display = 'block';
+            this.textContent = '🙈 Скрыть слово';
+        } else {
+            txt.style.display = 'none';
+            this.textContent = '👁 Показать слово';
+        }
+    });
 
     document.getElementById('ls-back').addEventListener('click', () => {
         if (s.correctFirstTry > 0 && !confirm('Выйти? Прогресс не сохранится.')) return;
@@ -23533,12 +23747,10 @@ function renderLsWordQuestion() {
 
             if (isCorrect) {
                 if (!item.isRepeat) s.correctFirstTry++;
-                lsSpeak(item.en, null);
                 s.queue.shift();
                 setTimeout(() => { s.answered = false; renderLsWordQuestion(); }, 800);
             } else {
                 item.isRepeat = true;
-                lsSpeak(item.en, null);
                 setTimeout(() => {
                     s.queue.shift(); s.queue.push(item);
                     s.answered = false;
@@ -23628,7 +23840,14 @@ function renderLsPhraseQuestion() {
     s.answered = false;
     const item = s.queue[0];
 
-    const others = s.pool.filter(w => w.en.toLowerCase() !== item.en.toLowerCase());
+    const seenRu = new Set([item.ru.toLowerCase()]);
+    const others = s.pool.filter(w => {
+        if (w.en.toLowerCase() === item.en.toLowerCase()) return false;
+        const ruKey = (w.ru || '').toLowerCase();
+        if (!ruKey || seenRu.has(ruKey)) return false;
+        seenRu.add(ruKey);
+        return true;
+    });
     const wrongs = lsShuffle(others).slice(0, 3);
     const options = lsShuffle([
         { ru: item.ru, correct: true },
@@ -23648,8 +23867,12 @@ function renderLsPhraseQuestion() {
         </div>
         <div class="sg-container">
             <div class="sg-prompt-card">
-                <div class="sg-audio-prompt">
+                <div class="sg-audio-prompt" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
                     <button class="sg-play-btn" id="ls-play">🔊 Прослушать</button>
+                    <button class="sg-btn-secondary" id="ls-show-text-btn">👁 Показать фразу</button>
+                </div>
+                <div id="ls-hidden-text" style="display:none; margin-top:15px; font-size:1.3rem; font-weight:bold; color:#2E7BAE;">
+                    ${item.en}
                 </div>
                 <div class="sg-question">Что означает эта фраза?</div>
             </div>
@@ -23659,9 +23882,19 @@ function renderLsPhraseQuestion() {
         </div>
     `;
 
-    const playFn = () => lsSpeak(item.en, null, null, true);
-    setTimeout(playFn, 300);
-    document.getElementById('ls-play').addEventListener('click', playFn);
+    // Автоозвучка ОТКЛЮЧЕНА — только по кнопке «Прослушать»
+        document.getElementById('ls-play').addEventListener('click', () => lsSpeak(item.en, null, null, true));
+
+    document.getElementById('ls-show-text-btn').addEventListener('click', function() {
+        const txt = document.getElementById('ls-hidden-text');
+        if (txt.style.display === 'none') {
+            txt.style.display = 'block';
+            this.textContent = '🙈 Скрыть фразу';
+        } else {
+            txt.style.display = 'none';
+            this.textContent = '👁 Показать фразу';
+        }
+    });
 
     document.getElementById('ls-back').addEventListener('click', () => {
         if (s.correctFirstTry > 0 && !confirm('Выйти? Прогресс не сохранится.')) return;
@@ -23681,12 +23914,10 @@ function renderLsPhraseQuestion() {
             });
             if (isCorrect) {
                 if (!item.isRepeat) s.correctFirstTry++;
-                lsSpeak(item.en, null);
                 s.queue.shift();
                 setTimeout(() => { s.answered = false; renderLsPhraseQuestion(); }, 800);
             } else {
                 item.isRepeat = true;
-                lsSpeak(item.en, null);
                 setTimeout(() => {
                     s.queue.shift(); s.queue.push(item);
                     s.answered = false;
@@ -23742,25 +23973,16 @@ function renderLsLevelsMenu() {
             <h2>🧩 Собери и впиши</h2>
             <p>Слушай фразу и работай с ней</p>
         </div>
-        <div class="ls-subsections" style="max-width:700px;">
-            ${LS_LEVELS.map(l => `
-                <div class="ls-sub-card" data-level="${l.num}">
-                    <div class="ls-sub-icon">${l.icon}</div>
-                    <div class="ls-sub-title">${l.title}</div>
-                    <div class="ls-sub-desc">${l.desc}</div>
-                </div>
-            `).join('')}
+        <div class="ls-subsections" style="max-width: 500px; display: flex; justify-content: center;">
+            <div class="ls-sub-card" data-level="1" style="background: linear-gradient(135deg, #4FA8D8 0%, #7FC4E8 100%); border-color: #FFB073; color: #FFF; transform: scale(1.05);">
+                <div class="ls-sub-icon" style="font-size: 3rem;">✍️</div>
+                <div class="ls-sub-title" style="color: #FFF; font-size: 1.2rem;">Начать игру</div>
+                <div class="ls-sub-desc" style="color: rgba(255,255,255,0.9);">3 уровня: Впиши → Скажи → Расставь</div>
+            </div>
         </div>
     `;
     document.getElementById('ls-back').addEventListener('click', renderLsSubsections);
-    container.querySelectorAll('[data-level]').forEach(card => {
-        card.addEventListener('click', () => {
-            const lvl = parseInt(card.dataset.level, 10);
-            if (lvl === 1) return startLsFill(1);
-            if (lvl === 2) return startLsFill(2);
-            if (lvl === 3) return startLsArrange();
-        });
-    });
+    container.querySelector('[data-level]').addEventListener('click', () => startLsFill(1));
 }
 let lsFillState = null;
 
@@ -23892,9 +24114,8 @@ function renderLsFillQuestion() {
         </div>
     `;
 
-    const playFn = () => lsSpeak(item.en, null, null, true);
-    setTimeout(playFn, 300);
-    document.getElementById('ls-play').addEventListener('click', playFn);
+    // Автоозвучка ОТКЛЮЧЕНА — только по кнопке «Прослушать»
+    document.getElementById('ls-play').addEventListener('click', () => lsSpeak(item.en, null, null, true));
 
     document.getElementById('ls-back').addEventListener('click', () => {
         if (s.correctFirstTry > 0 && !confirm('Выйти? Прогресс не сохранится.')) return;
@@ -23924,12 +24145,28 @@ function renderLsFillQuestion() {
                 inp.disabled = true;
             });
             if (!item.isRepeat) s.correctFirstTry++;
-            lsSpeak(item.en, null);
-            s.queue.shift();
-            setTimeout(() => { 
-                s.answered = false; 
-                renderLsFillQuestion(); 
-            }, 900);
+
+            // Показываем кнопку "Дальше" вместо авто-перехода
+            const checkBtn = document.getElementById('ls-check');
+            if (checkBtn) checkBtn.style.display = 'none';
+
+            let nextBtn = document.getElementById('ls-next-fill');
+            if (!nextBtn) {
+                nextBtn = document.createElement('button');
+                nextBtn.id = 'ls-next-fill';
+                nextBtn.className = 'sg-btn-primary';
+                nextBtn.textContent = 'Дальше ▶';
+                nextBtn.style.marginTop = '18px';
+                nextBtn.style.padding = '12px 30px';
+                nextBtn.style.fontSize = '1.1rem';
+                checkBtn.parentNode.appendChild(nextBtn);
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                s.queue.shift();
+                s.answered = false;
+                renderLsFillQuestion();
+            });
         }
     }
 
@@ -24029,17 +24266,13 @@ function renderLsFillQuestion() {
         // Голосовой ввод (режим 2)
         const wrap = document.getElementById('ls-voice-wrap');
         if (voiceAvailable() && wrap) {
-     const correctWords = hidden.map(idx => words[idx].replace(/[.,!?;:]/g, ''));
-     const phrase = correctWords.join(' ');
-   // Принимаем как точную фразу, так и отдельные слова в любом порядке
-    const validAnswers = [
-       phrase,
-     phrase.replace(/\s+/g, ' '),
-     ...correctWords
-];
-attachVoiceButton(wrap, {
-    lang: 'en-GB',
-    validAnswers,
+            const correctWords = hidden.map(idx => words[idx].replace(/[.,!?;:]/g, ''));
+            const phrase = correctWords.join(' ');
+            const validAnswers = [ phrase, phrase.replace(/\s+/g, ' '), ...correctWords ];
+            
+            attachVoiceButton(wrap, {
+                lang: 'en-GB',
+                validAnswers,
                 onMatch: () => {
                     if (s.answered) return;
                     s.answered = true;
@@ -24055,14 +24288,12 @@ attachVoiceButton(wrap, {
         
         if (wrap) {
             const skip = document.createElement('button');
-            skip.textContent = '✅ Я сказал правильно';
+            skip.textContent = '🙊 Не могу говорить (пропустить уровень)';
             skip.className = 'sg-btn-secondary';
             skip.style.marginTop = '10px';
             skip.addEventListener('click', () => {
-                if (s.answered) return;
-                s.answered = true;
-                s.queue.shift();
-                setTimeout(() => { s.answered = false; renderLsFillQuestion(); }, 500);
+                s.queue = []; // Очищаем очередь полностью
+                finishLsFill(); // Переходим на экран итогов
             });
             wrap.appendChild(skip);
         }
@@ -24078,6 +24309,11 @@ function finishLsFill() {
     const container = document.getElementById('ls-content');
     const emoji = percent === 100 ? '🏆' : percent >= 90 ? '🌟' : percent >= 70 ? '🎉' : percent >= 50 ? '💪' : '😔';
     const title = s.mode === 2 ? '🎤 Пропуски голосом · итог' : '✍️ Заполни пропуски · итог';
+    
+    let nextBtnText = '🔄 Ещё раз';
+    if (s.mode === 1) nextBtnText = '▶ Дальше: Пропуски голосом';
+    else if (s.mode === 2) nextBtnText = '▶ Дальше: Расставь слова';
+    else if (s.mode === 3) nextBtnText = '🔄 Играть заново';
 
     container.innerHTML = `
         <div style="text-align:center;">
@@ -24090,15 +24326,22 @@ function finishLsFill() {
                 <h2>${passed ? 'Отличная работа!' : 'Попробуй ещё раз!'}</h2>
                 <div class="sg-complete-score">${s.correctFirstTry} / ${total} · ${percent}%</div>
                 <div class="sg-complete-actions">
-                    <button class="sg-btn-primary" id="ls-again">🔄 Ещё раз</button>
+                    <button class="sg-btn-primary" id="ls-next-level">${nextBtnText}</button>
                     <button class="sg-btn-secondary" id="ls-back2">← Назад</button>
                 </div>
             </div>
         </div>
     `;
-    document.getElementById('ls-back').addEventListener('click', () => { lsFillState = null; renderLsLevelsMenu(); });
-    document.getElementById('ls-back2').addEventListener('click', () => { lsFillState = null; renderLsLevelsMenu(); });
-    document.getElementById('ls-again').addEventListener('click', () => startLsFill(s.mode));
+    
+    const goBack = () => { lsFillState = null; renderLsLevelsMenu(); };
+    document.getElementById('ls-back').addEventListener('click', goBack);
+    document.getElementById('ls-back2').addEventListener('click', goBack);
+    
+    document.getElementById('ls-next-level').addEventListener('click', () => {
+        if (s.mode === 1) startLsFill(2);
+        else if (s.mode === 2) startLsArrange();
+        else startLsFill(1);
+    });
 }
 let lsArrangeState = null;
 
@@ -24180,9 +24423,8 @@ function renderLsArrangeQuestion() {
         </div>
     `;
 
-    const playFn = () => lsSpeak(item.en, null, null, true);
-    setTimeout(playFn, 300);
-    document.getElementById('ls-play').addEventListener('click', playFn);
+    // Автоозвучка ОТКЛЮЧЕНА — только по кнопке «Прослушать»
+    document.getElementById('ls-play').addEventListener('click', () => lsSpeak(item.en, null, null, true));
 
     document.getElementById('ls-back').addEventListener('click', () => {
         if (s.correctFirstTry > 0 && !confirm('Выйти? Прогресс не сохранится.')) return;
@@ -24241,12 +24483,29 @@ function renderLsArrangeQuestion() {
             const target = words.join(' ');
             if (assembled.toLowerCase() === target.toLowerCase()) {
                 if (!item.isRepeat) s.correctFirstTry++;
-                lsSpeak(item.en, null);
-                setTimeout(() => {
+                slotsEl.style.background = '#E8F5E9'; // Зелёный фон при успехе
+                
+                // Останавливаем клики
+                slotsEl.querySelectorAll('button').forEach(b => b.disabled = true);
+                poolEl.querySelectorAll('button').forEach(b => b.disabled = true);
+
+                // Показываем кнопку "Дальше"
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'sg-btn-primary';
+                nextBtn.textContent = 'Дальше ▶';
+                nextBtn.style.marginTop = '15px';
+                nextBtn.style.padding = '12px 30px';
+                nextBtn.style.fontSize = '1.1rem';
+                nextBtn.addEventListener('click', () => {
                     s.queue.shift();
                     s.answered = false;
                     renderLsArrangeQuestion();
-                }, 900);
+                });
+                // Находим контейнер для кнопок (блок под пулом)
+                const controls = document.getElementById('ls-ar-reset').parentNode;
+                controls.innerHTML = ''; 
+                controls.appendChild(nextBtn);
+
             } else {
                 item.isRepeat = true;
                 slotsEl.style.background = '#FFEBEE';
@@ -24579,10 +24838,8 @@ function renderDictationMode(texts, isVOA) {                         // ← до
                 <button class="sg-btn-primary" id="dict-check" style="margin-top:20px;">Проверить</button>
             </div>
         `;
-
-        const playFn = () => lsSpeak(item.text, 'en-GB', null, true);
-        setTimeout(playFn, 300);
-        document.getElementById('dict-play').addEventListener('click', playFn);
+        // Автоозвучка ОТКЛЮЧЕНА — только по кнопке «Прослушать»
+        document.getElementById('dict-play').addEventListener('click', () => lsSpeak(item.text, 'en-GB', null, true));
 
         document.getElementById('dict-check').addEventListener('click', () => {
             const input = document.getElementById('dict-input');
@@ -24616,7 +24873,7 @@ function renderDictationMode(texts, isVOA) {                         // ← до
 // ============================================================
 // РЕЖИМ "ВЫБЕРИ КАРТИНКУ" (Вариант Б)
 // ============================================================
-function renderPictureGame(isVOA) {                                   // ← добавлен isVOA
+function renderPictureGame(isVOA) {
     const content = document.getElementById('ls-tab-content');
     const data = lsGetData();
     const userLevel = getUserLevel();
@@ -24642,12 +24899,10 @@ function renderPictureGame(isVOA) {                                   // ← д�
                     <button class="sg-btn-primary" id="ls-back-pic">← Назад</button>
                 </div>
             `;
-            // ▼▼▼ ИСПРАВЛЕНИЕ ▼▼▼
             document.getElementById('ls-back-pic').addEventListener('click', () => {
                 currentLsTabNew = 'texts';
                 renderLsStoriesNew(isVOA);
             });
-            // ▲▲▲ КОНЕЦ ▲▲▲
             return;
         }
 
@@ -24666,33 +24921,54 @@ function renderPictureGame(isVOA) {                                   // ← д�
         }
 
         const allWords = Object.values(wordsData).flat();
-        const wrongCandidates = allWords.filter(w =>
-            w.en.toLowerCase() !== item.correct.toLowerCase() && w.emoji
-        );
+        const seenWrong = new Set();
+        const wrongCandidates = allWords.filter(w => {
+            if (!w.emoji || !w.en) return false;
+            const key = w.en.toLowerCase();
+            if (key === item.correct.toLowerCase()) return false;
+            if (seenWrong.has(key)) return false;
+            seenWrong.add(key);
+            return true;
+        });
         const wrongs = sgShuffle(wrongCandidates).slice(0, 3);
 
         const options = sgShuffle([correctWord, ...wrongs]);
 
         content.innerHTML = `
-            <div style="text-align:center; max-width:600px; margin:0 auto;">
+            <div style="text-align:center; max-width:650px; margin:0 auto;">
                 <p style="color:#666;">Вопрос ${currentIndex + 1} из ${selected.length}</p>
                 <div class="sg-prompt-card" style="padding:20px;">
                     <button class="sg-play-btn" id="pic-play">🔊 Прослушать описание</button>
-                    <p style="margin-top:15px; font-size:1.1rem;">${item.text}</p>
+                    <div style="margin-top:15px;">
+                        <button id="pic-show-text" style="background:#E0F2FC; color:#2E7BAE; border:2px solid #7FC4E8; border-radius:12px; padding:6px 16px; font-family:inherit; font-weight:bold; cursor:pointer; font-size:0.9rem;">👁 Показать текст</button>
+                        <div id="pic-text" style="display:none; margin-top:10px; font-size:1.1rem; font-weight:bold; color:#2E7BAE;">${item.text}</div>
+                    </div>
                 </div>
+                
+                <!-- Сетка вариантов с подписями -->
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:20px;">
                     ${options.map((o, i) => `
-                        <button class="sg-option" data-opt="${i}" style="font-size:3rem; padding:20px;">
-                            ${o.emoji || '📘'}
+                        <button class="sg-option" data-opt="${i}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 20px 10px;">
+                            <span style="font-size: 3.5rem; line-height: 1;">${o.emoji || '📘'}</span>
+                            <span style="font-size: 1.1rem; font-weight: bold; color: #2E7BAE; text-transform: capitalize;">${o.en}</span>
                         </button>
                     `).join('')}
                 </div>
             </div>
         `;
 
-        const playFn = () => lsSpeak(item.text, 'en-GB', null, true);
-        setTimeout(playFn, 300);
-        document.getElementById('pic-play').addEventListener('click', playFn);
+        // Автоозвучка ОТКЛЮЧЕНА — только по кнопке «Прослушать»
+        document.getElementById('pic-play').addEventListener('click', () => lsSpeak(item.text, 'en-GB', null, true));
+
+        // Обработчик показа текста
+        const picShowBtn = document.getElementById('pic-show-text');
+        if (picShowBtn) {
+            picShowBtn.addEventListener('click', () => {
+                const txt = document.getElementById('pic-text');
+                txt.style.display = txt.style.display === 'none' ? 'block' : 'none';
+                picShowBtn.textContent = txt.style.display === 'none' ? '👁 Показать текст' : '🙈 Скрыть текст';
+            });
+        }
 
         content.querySelectorAll('.sg-option').forEach((btn, i) => {
             btn.addEventListener('click', () => {
@@ -24993,6 +25269,15 @@ function lsPrevLine() {
 }
 let lsStoryState = null;
 
+// Снимает глобальный обработчик клавиш из раздела "Аудирование".
+// Безопасно вызывать многократно.
+function cleanupListeningHotkeys() {
+    if (window._lsStoryKeyHandler) {
+        document.removeEventListener('keydown', window._lsStoryKeyHandler);
+        window._lsStoryKeyHandler = null;
+    }
+}
+
 function startLsStory(data, isVOA) {
     lsStoryState = {
         data,
@@ -25001,6 +25286,12 @@ function startLsStory(data, isVOA) {
         // answers[i] = null | true | false
         answers: new Array((data.questions || []).length).fill(null),
         isRepeat: new Array((data.questions || []).length).fill(false),
+        // Кэш вариантов ответа на каждый вопрос: { [qIndex]: string[] }.
+        // Нужен, чтобы 4-й "пустышка"-вариант не менялся при перерисовке.
+        displayOptionsCache: {},
+        // Какой вариант пользователь выбрал на каждом вопросе: { [qIndex]: number }.
+        // Отдельный по индексу, чтобы не путать ответы между вопросами.
+        lastPickedByQ: {},
         finished: false
     };
     renderLsStoryQuestion();
@@ -25019,19 +25310,30 @@ function lsStoryCountFirstTry() {
     s.answers.forEach((a, i) => { if (a === true && !s.isRepeat[i]) n++; });
     return n;
 }
-
 function renderLsStoryQuestion() {
     const s = lsStoryState;
-    if (!s) return;
+    if (!s) {
+        cleanupListeningHotkeys();
+        return;
+    }
     if (s.finished) return finishLsStory();
 
     const container = document.getElementById('ls-content');
+    if (!container) {
+        // Пользователь уже ушёл из раздела "Аудирование"
+        // (например, через верхнее меню) — тихо чистим состояние,
+        // чтобы горячие клавиши не срабатывали в других разделах.
+        lsStopPlayer();
+        cleanupListeningHotkeys();
+        lsStoryState = null;
+        return;
+    }
     const { data, isVOA } = s;
     const questions = data.questions || [];
     const total = questions.length;
     const q = questions[s.qIndex];
     const answered = s.answers[s.qIndex] !== null;
-    
+
     // === ДОБАВЛЯЕМ 4-Й ВАРИАНТ, ЕСЛИ ИХ ТОЛЬКО 3 ===
     let displayOptions = [...q.options];
     if (displayOptions.length === 3) {
@@ -25123,8 +25425,11 @@ function renderLsStoryQuestion() {
                     let cls = 'sg-option';
                     let dis = answered;
                     if (answered) {
-                        if (i === q.correct) cls += ' correct';
-                        else if (s.answers[s.qIndex] === false && i === s.lastPicked) cls += ' wrong';
+                        if (i === q.correct) {
+                            cls += ' correct';
+                        } else if (s.answers[s.qIndex] === false && i === s.lastPickedByQ[s.qIndex]) {
+                            cls += ' wrong';
+                        }
                     }
                     return `<button class="${cls}" data-opt="${i}" ${dis ? 'disabled' : ''}>${o}</button>`;
                 }).join('')}
@@ -25225,7 +25530,7 @@ function renderLsStoryQuestion() {
                 if (s.answers[s.qIndex] !== null) return;
                 const isCorrect = i === q.correct;
                 s.answers[s.qIndex] = isCorrect;
-                s.lastPicked = i;
+                s.lastPickedByQ[s.qIndex] = i;
                 if (!isCorrect) s.isRepeat[s.qIndex] = true;
                 renderLsStoryQuestion();
             });
@@ -25257,7 +25562,8 @@ function renderLsStoryQuestion() {
 
     document.getElementById('ls-back').addEventListener('click', () => {
         if (lsStoryCountCorrect() > 0 && !confirm('Выйти? Прогресс не сохранится.')) return;
-        lsStopPlayer(); // Останавливаем плеер при выходе
+        lsStopPlayer();
+        cleanupListeningHotkeys();
         lsStoryState = null;
         renderLsStoriesNew(isVOA);
     });
@@ -25317,18 +25623,23 @@ function renderLsStoryQuestion() {
 
 function finishLsStory() {
     const s = lsStoryState;
-    if (!s) return;
-    lsStopPlayer();
-    if (window._lsStoryKeyHandler) {
-        document.removeEventListener('keydown', window._lsStoryKeyHandler);
-        window._lsStoryKeyHandler = null;
+    if (!s) {
+        cleanupListeningHotkeys();
+        return;
     }
+    lsStopPlayer();
+    cleanupListeningHotkeys();
 
     const total = (s.data.questions || []).length;
     const correct = lsStoryCountCorrect();
     const firstTry = lsStoryCountFirstTry();
     const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
     const container = document.getElementById('ls-content');
+    if (!container) {
+        // Ушли из раздела до завершения — просто сбрасываем состояние
+        lsStoryState = null;
+        return;
+    }
     const emoji = percent === 100 ? '🏆' : percent >= 70 ? '🎉' : '💪';
 
     container.innerHTML = `
@@ -25567,7 +25878,7 @@ const NAME_OBJECT_CATEGORIES = [
     'nature_basic', 'body_basic', 'home_basic'
 ];
 
-let speakingAudience = null;
+// (удалено)
 
 function renderSpeakingSection() {
     closeSidebar();
@@ -25579,7 +25890,7 @@ function renderSpeakingSection() {
 
     if (!voiceSupport.supported) {
         contentEl.innerHTML = `
-            <div class="games-header"><h2>🗣️ Говорение</h2></div>
+            <div class="games-header"><h2>👄 Говорение</h2></div>
             <div class="games-placeholder">
                 <span class="big-icon">😔</span>
                 <h2>Браузер не поддерживает</h2>
@@ -25589,7 +25900,7 @@ function renderSpeakingSection() {
     }
     if (!voiceSupport.secure) {
         contentEl.innerHTML = `
-            <div class="games-header"><h2>🗣️ Говорение</h2></div>
+            <div class="games-header"><h2>👄 Говорение</h2></div>
             <div class="games-placeholder">
                 <span class="big-icon">🔒</span>
                 <h2>Нужен HTTPS</h2>
@@ -25603,40 +25914,8 @@ function renderSpeakingSection() {
 
     contentEl.innerHTML = `
         <div class="games-header">
-            <h2>🗣️ Говорение</h2>
+            <h2>👄 Говорение</h2>
             <p>Твой уровень: <b style="color:${levelColor};">${level}</b> · Учись говорить вслух</p>
-        </div>
-        <div class="games-grid">
-            <div class="game-card" data-speaking-audience="kids">
-                <div class="game-icon">🧒</div>
-                <div class="game-title">Детям</div>
-                <div class="game-desc">Назови предмет · Прочитай · Опиши</div>
-            </div>
-            <div class="game-card" data-speaking-audience="adults">
-                <div class="game-icon">🧑</div>
-                <div class="game-title">Взрослым</div>
-                <div class="game-desc">Эхо · Скороговорки · Акценты · Свободно</div>
-            </div>
-        </div>
-    `;
-
-    contentEl.querySelectorAll('[data-speaking-audience]').forEach(card => {
-        card.addEventListener('click', () => {
-            speakingAudience = card.dataset.speakingAudience;
-            if (speakingAudience === 'kids') renderSpeakingKidsMenu();
-            else renderSpeakingAdultsMenu();
-        });
-    });
-}
-
-function renderSpeakingKidsMenu() {
-    contentEl.innerHTML = `
-        <div style="text-align:center; margin-bottom:15px;">
-            <button class="games-back-btn" id="spk-back">← Назад</button>
-        </div>
-        <div class="games-header">
-            <h2>🧒 Говорение · Детям</h2>
-            <p>Учись говорить по-английски</p>
         </div>
         <div class="games-grid">
             <div class="game-card" data-speaking-game="name-object">
@@ -25646,7 +25925,7 @@ function renderSpeakingKidsMenu() {
             </div>
             <div class="game-card" data-speaking-game="read-aloud">
                 <div class="game-icon">📖</div>
-                <div class="game-title">Прочитай</div>
+                <div class="game-title">Прочитай вслух</div>
                 <div class="game-desc">Читай вслух короткие фразы</div>
             </div>
             <div class="game-card" data-speaking-game="describe-kids">
@@ -25654,29 +25933,6 @@ function renderSpeakingKidsMenu() {
                 <div class="game-title">Опиши картинку</div>
                 <div class="game-desc">Скажи всё, что видишь</div>
             </div>
-        </div>
-    `;
-    document.getElementById('spk-back').addEventListener('click', renderSpeakingSection);
-    contentEl.querySelectorAll('[data-speaking-game]').forEach(card => {
-        card.addEventListener('click', () => {
-            const g = card.dataset.speakingGame;
-            if (g === 'name-object') startNameObjectGame();
-            else if (g === 'read-aloud') startReadAloudGame();
-            else if (g === 'describe-kids') startDescribePictureGame();
-        });
-    });
-}
-
-function renderSpeakingAdultsMenu() {
-    contentEl.innerHTML = `
-        <div style="text-align:center; margin-bottom:15px;">
-            <button class="games-back-btn" id="spk-back">← Назад</button>
-        </div>
-        <div class="games-header">
-            <h2>🧑 Говорение · Взрослым</h2>
-            <p>Продвинутые техники речи</p>
-        </div>
-        <div class="games-grid">
             <div class="game-card" data-speaking-game="shadowing">
                 <div class="game-icon">🎭</div>
                 <div class="game-title">Эхо (Shadowing)</div>
@@ -25699,17 +25955,23 @@ function renderSpeakingAdultsMenu() {
             </div>
         </div>
     `;
-    document.getElementById('spk-back').addEventListener('click', renderSpeakingSection);
+
     contentEl.querySelectorAll('[data-speaking-game]').forEach(card => {
         card.addEventListener('click', () => {
             const g = card.dataset.speakingGame;
-            if (g === 'shadowing') startShadowingGame();
+            if (g === 'name-object') startNameObjectGame();
+            else if (g === 'read-aloud') startReadAloudGame();
+            else if (g === 'describe-kids') startDescribePictureGame();
+            else if (g === 'shadowing') startShadowingGame();
             else if (g === 'tongue-twisters') startTongueTwisterGame();
             else if (g === 'accent-battle') startAccentBattleGame();
             else if (g === 'free-talk') startFreeTalkGame();
         });
     });
 }
+
+
+
 
 function speakRecognizeOnce(opts = {}) {
     return new Promise((resolve) => {
@@ -25754,7 +26016,7 @@ function speakRecognizeOnce(opts = {}) {
 
 function startNameObjectGame() {
     const userLevel = getUserLevel();
-    const pool = [];
+    let pool = [];
     const seen = new Set();
     NAME_OBJECT_CATEGORIES.forEach(catId => {
         (wordsData[catId] || []).forEach(w => {
@@ -25767,7 +26029,8 @@ function startNameObjectGame() {
             pool.push(w);
         });
     });
-    const filtered = pool.filter(w => {
+    
+    let filtered = pool.filter(w => {
         const catId = NAME_OBJECT_CATEGORIES.find(c =>
             (wordsData[c] || []).some(x => x.en.toLowerCase() === w.en.toLowerCase())
         );
@@ -25775,11 +26038,18 @@ function startNameObjectGame() {
         return canAccessLevel(getCategoryLevel(catId));
     });
 
+    // УМНЫЙ ФИЛЬТР: убираем слова, чьи эмодзи повторяются (например, мишка и игрушка)
+    const emojiCounts = {};
+    filtered.forEach(w => { 
+        if (w.emoji) emojiCounts[w.emoji] = (emojiCounts[w.emoji] || 0) + 1; 
+    });
+    filtered = filtered.filter(w => w.emoji && emojiCounts[w.emoji] === 1);
+
     if (filtered.length < 5) {
         contentEl.innerHTML = `
             <div style="text-align:center;"><button class="games-back-btn" id="no-back">← Назад</button></div>
             <div class="games-placeholder"><span class="big-icon">😔</span><h2>Мало слов</h2><p>Попробуй другой уровень.</p></div>`;
-        document.getElementById('no-back').addEventListener('click', renderSpeakingKidsMenu);
+        document.getElementById('no-back').addEventListener('click', renderSpeakingSection);
         return;
     }
 
@@ -25800,8 +26070,8 @@ function startNameObjectGame() {
                         <button class="sg-btn-secondary" id="no-back2">← Назад</button>
                     </div>
                 </div></div>`;
-            document.getElementById('no-back').addEventListener('click', renderSpeakingKidsMenu);
-            document.getElementById('no-back2').addEventListener('click', renderSpeakingKidsMenu);
+            document.getElementById('no-back').addEventListener('click', renderSpeakingSection);
+            document.getElementById('no-back2').addEventListener('click', renderSpeakingSection);
             document.getElementById('no-again').addEventListener('click', startNameObjectGame);
             return;
         }
@@ -25813,15 +26083,29 @@ function startNameObjectGame() {
                 <p>Карточка ${idx + 1} из ${queue.length} · ✓ ${correct}</p>
             </div>
             <div class="sg-container">
-                <div class="sg-prompt-card" style="padding:30px;">
+                <div class="sg-prompt-card" style="padding:30px; position:relative;">
                     <div style="font-size:7rem; line-height:1; margin-bottom:15px;">${item.emoji}</div>
                     <div class="sg-question">Что это? Скажи по-английски</div>
+                    <div style="margin-top:15px;">
+                        <button id="no-toggle-btn" style="background:#E0F2FC; color:#2E7BAE; border:2px solid #7FC4E8; border-radius:12px; padding:8px 16px; font-family:inherit; font-weight:bold; cursor:pointer; font-size:0.95rem;">👁 Показать текст</button>
+                        <div id="no-hint-text" style="display:none; margin-top:10px; font-size:1.4rem; font-weight:bold; color:#E06A1E;">${item.en}</div>
+                    </div>
                 </div>
                 <div id="no-voice-wrap" style="text-align:center; margin-top:20px;"></div>
                 <div id="no-feedback" style="text-align:center; margin-top:15px; min-height:30px; font-weight:bold; font-size:1.1rem;"></div>
             </div>
         `;
-        document.getElementById('no-back').addEventListener('click', renderSpeakingKidsMenu);
+        document.getElementById('no-back').addEventListener('click', renderSpeakingSection);
+
+        // Обработчик показа текста
+        const toggleBtn = document.getElementById('no-toggle-btn');
+        const hintText = document.getElementById('no-hint-text');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                hintText.style.display = hintText.style.display === 'none' ? 'block' : 'none';
+                toggleBtn.textContent = hintText.style.display === 'none' ? '👁 Показать текст' : '🙈 Скрыть текст';
+            });
+        }
 
         const wrap = document.getElementById('no-voice-wrap');
         attachVoiceButton(wrap, {
@@ -25867,8 +26151,8 @@ function startReadAloudGame() {
                         <button class="sg-btn-secondary" id="ra-back2">← Назад</button>
                     </div>
                 </div></div>`;
-            document.getElementById('ra-back').addEventListener('click', renderSpeakingKidsMenu);
-            document.getElementById('ra-back2').addEventListener('click', renderSpeakingKidsMenu);
+            document.getElementById('ra-back').addEventListener('click', renderSpeakingSection);
+            document.getElementById('ra-back2').addEventListener('click', renderSpeakingSection);
             document.getElementById('ra-again').addEventListener('click', startReadAloudGame);
             return;
         }
@@ -25888,7 +26172,7 @@ function startReadAloudGame() {
                 <div id="ra-voice-wrap" style="text-align:center; margin-top:20px;"></div>
                 <div id="ra-feedback" style="text-align:center; margin-top:15px; min-height:30px; font-weight:bold; font-size:1.05rem;"></div>
             </div>`;
-        document.getElementById('ra-back').addEventListener('click', renderSpeakingKidsMenu);
+        document.getElementById('ra-back').addEventListener('click', renderSpeakingSection);
         document.getElementById('ra-listen').addEventListener('click', () => lsSpeak(item.en, 'en-GB'));
 
         const targetWords = item.en.toLowerCase().replace(/[.,!?;:'"]/g, '').split(/\s+/).filter(Boolean);
@@ -25949,7 +26233,7 @@ function startDescribePictureGame() {
             <div id="dp-result" style="text-align:center; margin-top:15px; font-weight:bold; font-size:1.1rem;"></div>
         </div>`;
 
-    document.getElementById('dp-back').addEventListener('click', renderSpeakingKidsMenu);
+    document.getElementById('dp-back').addEventListener('click', renderSpeakingSection);
 
     document.getElementById('dp-start').addEventListener('click', async () => {
         document.getElementById('dp-start').disabled = true;
@@ -26003,7 +26287,7 @@ function startDescribePictureGame() {
                     <button class="sg-btn-secondary" id="dp-back2">← Назад</button>
                 </div>`;
             document.getElementById('dp-again').addEventListener('click', startDescribePictureGame);
-            document.getElementById('dp-back2').addEventListener('click', renderSpeakingKidsMenu);
+            document.getElementById('dp-back2').addEventListener('click', renderSpeakingSection);
         };
 
         try { rec.start(); } catch (e) {
@@ -26033,8 +26317,8 @@ function startShadowingGame() {
                         <button class="sg-btn-secondary" id="sh-back2">← Назад</button>
                     </div>
                 </div></div>`;
-            document.getElementById('sh-back').addEventListener('click', renderSpeakingAdultsMenu);
-            document.getElementById('sh-back2').addEventListener('click', renderSpeakingAdultsMenu);
+            document.getElementById('sh-back').addEventListener('click', renderSpeakingSection);
+            document.getElementById('sh-back2').addEventListener('click', renderSpeakingSection);
             document.getElementById('sh-again').addEventListener('click', startShadowingGame);
             return;
         }
@@ -26057,7 +26341,7 @@ function startShadowingGame() {
                 <div id="sh-voice-wrap" style="text-align:center; margin-top:20px;"></div>
                 <div id="sh-feedback" style="text-align:center; margin-top:15px; min-height:30px; font-weight:bold; font-size:1.05rem;"></div>
             </div>`;
-        document.getElementById('sh-back').addEventListener('click', renderSpeakingAdultsMenu);
+        document.getElementById('sh-back').addEventListener('click', renderSpeakingSection);
         document.getElementById('sh-listen').addEventListener('click', () => lsSpeak(item.en, 'en-GB'));
 
         const targetWords = item.en.toLowerCase().replace(/[.,!?;:'"]/g, '').split(/\s+/).filter(Boolean);
@@ -26105,8 +26389,8 @@ function startTongueTwisterGame() {
                         <button class="sg-btn-secondary" id="tt-back2">← Назад</button>
                     </div>
                 </div></div>`;
-            document.getElementById('tt-back').addEventListener('click', renderSpeakingAdultsMenu);
-            document.getElementById('tt-back2').addEventListener('click', renderSpeakingAdultsMenu);
+            document.getElementById('tt-back').addEventListener('click', renderSpeakingSection);
+            document.getElementById('tt-back2').addEventListener('click', renderSpeakingSection);
             document.getElementById('tt-again').addEventListener('click', startTongueTwisterGame);
             return;
         }
@@ -26129,7 +26413,7 @@ function startTongueTwisterGame() {
                 <div id="tt-voice-wrap" style="text-align:center; margin-top:20px;"></div>
                 <div id="tt-feedback" style="text-align:center; margin-top:15px; min-height:30px; font-weight:bold; font-size:1.05rem;"></div>
             </div>`;
-        document.getElementById('tt-back').addEventListener('click', renderSpeakingAdultsMenu);
+        document.getElementById('tt-back').addEventListener('click', renderSpeakingSection);
         document.getElementById('tt-listen').addEventListener('click', () => lsSpeak(item.en, 'en-GB'));
 
         const targetWords = item.en.toLowerCase().replace(/[.,!?;:'"]/g, '').split(/\s+/).filter(Boolean);
@@ -26186,8 +26470,8 @@ function startAccentBattleGame() {
                         <button class="sg-btn-secondary" id="ab-back2">← Назад</button>
                     </div>
                 </div></div>`;
-            document.getElementById('ab-back').addEventListener('click', renderSpeakingAdultsMenu);
-            document.getElementById('ab-back2').addEventListener('click', renderSpeakingAdultsMenu);
+            document.getElementById('ab-back').addEventListener('click', renderSpeakingSection);
+            document.getElementById('ab-back2').addEventListener('click', renderSpeakingSection);
             document.getElementById('ab-again').addEventListener('click', startAccentBattleGame);
             return;
         }
@@ -26213,7 +26497,7 @@ function startAccentBattleGame() {
                 <div id="ab-voice-wrap" style="text-align:center; margin-top:20px;"></div>
                 <div id="ab-feedback" style="text-align:center; margin-top:15px; min-height:30px; font-weight:bold;"></div>
             </div>`;
-        document.getElementById('ab-back').addEventListener('click', renderSpeakingAdultsMenu);
+        document.getElementById('ab-back').addEventListener('click', renderSpeakingSection);
         document.getElementById('ab-uk').addEventListener('click', () => lsSpeak(item.en, 'en-GB'));
         document.getElementById('ab-us').addEventListener('click', () => lsSpeak(item.en, 'en-US'));
 
@@ -26272,7 +26556,7 @@ function startFreeTalkGame() {
             </div>
         </div>`;
 
-    document.getElementById('ft-back').addEventListener('click', renderSpeakingAdultsMenu);
+    document.getElementById('ft-back').addEventListener('click', renderSpeakingSection);
     document.getElementById('ft-newtopic').addEventListener('click', startFreeTalkGame);
 
     let mediaRecorder = null;
