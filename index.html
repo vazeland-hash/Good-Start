@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <title>Good Start — Учим английский</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -221,13 +221,14 @@ body.dark-theme #tt-input {
 html {
     font-size: 20px; /* было 16px (по умолчанию) — стало крупнее на 25% */
 }
-    body {
-        background: linear-gradient(135deg, #7FC4E8 0%, #FFD6A8 50%, #FFE9B8 100%);
-        background-attachment: fixed;
-        min-height: 100vh;
-        padding: 20px;
-        color: #3A3A3A;
-    }
+   body {
+    background: linear-gradient(135deg, #7FC4E8 0%, #FFD6A8 50%, #FFE9B8 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    min-height: 100dvh;   /* корректная высота на мобильных Safari/Chrome */
+    padding: 20px;
+    color: #3A3A3A;
+}
 
     header { text-align: center; margin-bottom: 25px; }
 
@@ -1062,6 +1063,25 @@ html {
     background: linear-gradient(135deg, #2E7BAE 0%, #4FA8D8 100%);
     transform: translateY(-2px);
 } 
+
+
+/* === МОБИЛЬНЫЕ: уменьшаем базовый шрифт и отключаем тяжёлые filter === */
+@media (max-width: 700px) {
+    html {
+        font-size: 16px;
+    }
+    .word-card-emoji,
+    .menu-card .icon,
+    .game-card .game-icon,
+    .book-cover,
+    .phrase-tile-icon {
+        filter: none;
+    }
+    .book-text {
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+}
 /* === ИСПРАВЛЕНИЕ: кнопки звука и темы === */
 .sound-toggle {
     position: fixed !important;
@@ -2632,6 +2652,37 @@ body.dark-theme .theory-material-link {
 .phrases-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 220px)) !important;
 }
+/* === МОБИЛЬНЫЕ: переставляем кнопки вертикально справа, чтобы не перекрывали контент === */
+@media (max-width: 500px) {
+    .sound-toggle {
+        right: 15px !important;
+        bottom: 80px !important;
+        width: 46px !important;
+        height: 46px !important;
+        font-size: 1.1rem !important;
+    }
+    .theme-toggle {
+        right: 15px !important;
+        bottom: 132px !important;
+        width: 46px !important;
+        height: 46px !important;
+        font-size: 1.1rem !important;
+    }
+    .voice-toggle {
+        right: 15px !important;
+        bottom: 184px !important;
+        width: 46px !important;
+        height: 46px !important;
+        font-size: 1.1rem !important;
+    }
+    .sidebar-toggle {
+        right: 15px !important;
+        bottom: 25px !important;
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 1.4rem !important;
+    }
+}
 </style>
 </head>
 <body>
@@ -2708,6 +2759,7 @@ body.dark-theme .theory-material-link {
 <script src="level_data.js"></script>
 <script src="lib/pdf.min.js"></script>
 <script>
+
 // Безопасное экранирование строки для вставки в HTML-атрибут (двойные кавычки)
 function escapeAttr(s) {
     return String(s)
@@ -2717,14 +2769,38 @@ function escapeAttr(s) {
         .replace(/</g,  '&lt;')
         .replace(/>/g,  '&gt;');
 }
-// Безопасное экранирование строки для вставки в HTML-атрибут (двойные кавычки)
-function escapeAttr(s) {
-    return String(s)
-        .replace(/&/g,  '&amp;')
-        .replace(/"/g,  '&quot;')
-        .replace(/'/g,  '&#39;')
-        .replace(/</g,  '&lt;')
-        .replace(/>/g,  '&gt;');
+// ============================================================
+// БЕЗОПАСНАЯ ЗАПИСЬ В localStorage (защита от QuotaExceededError)
+// ============================================================
+function safeSetItem(key, value) {
+    try {
+        localStorage.setItem(key, value);
+        return true;
+    } catch (e) {
+        console.warn('localStorage переполнен:', key, e);
+        if (e.name === 'QuotaExceededError' || e.code === 22) {
+            // Пытаемся освободить место — чистим кэш переводов
+            const toRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const k = localStorage.key(i);
+                if (k && (k.includes('translation_') || k.includes('translation_ru_en_'))) {
+                    toRemove.push(k);
+                }
+            }
+            toRemove.forEach(k => {
+                try { localStorage.removeItem(k); } catch (e2) {}
+            });
+            // Пробуем записать ещё раз
+            try {
+                localStorage.setItem(key, value);
+                return true;
+            } catch (e3) {
+                console.error('Не удалось записать даже после очистки:', e3);
+                return false;
+            }
+        }
+        return false;
+    }
 }
 
 // ============================================================
@@ -2787,7 +2863,7 @@ function loadUsers() {
 
 function saveUsers(list) {
     invalidateActiveUserCache();
-    localStorage.setItem(USERS_LIST_KEY, JSON.stringify(list));
+    safeSetItem(USERS_LIST_KEY, JSON.stringify(list));
 }
 
 let _activeUserCache = null;
@@ -2812,7 +2888,7 @@ function invalidateActiveUserCache() {
 function setActiveUser(id) {
     // 1. Сначала переключаемся на нового пользователя
     invalidateActiveUserCache();
-    localStorage.setItem(ACTIVE_USER_KEY, id);
+        safeSetItem(ACTIVE_USER_KEY, id);
 
     // 2. Теперь читаем настройки — они уже от нового пользователя
     voiceEnabled = loadVoiceEnabled();
@@ -2825,7 +2901,7 @@ function setActiveUser(id) {
             : 'Голосовой ввод отключён';
     }
 
-    localStorage.setItem(PICKER_SEEN_KEY, '1');
+        safeSetItem(PICKER_SEEN_KEY, '1');
     const overlay = document.getElementById('user-picker-overlay');
     if (overlay) overlay.remove();
     
@@ -4677,42 +4753,58 @@ function finishTheoryTest() {
 // ИНИЦИАЛИЗАЦИЯ
 // ============================================================
 function initUserSystem() {
-    const users = loadUsers();
+    try {
+        const users = loadUsers();
 
-    // 1) Профилей нет — экран создания
-    if (users.length === 0) {
-        showCreateProfileScreen();
-        return;
+        // 1) Профилей нет — экран создания
+        if (users.length === 0) {
+            showCreateProfileScreen();
+            return;
+        }
+
+        // 2) Есть активный пользователь в localStorage → входим автоматически
+        const savedActiveId = localStorage.getItem(ACTIVE_USER_KEY);
+        const savedUser = savedActiveId ? users.find(u => u.id === savedActiveId) : null;
+
+        if (savedUser) {
+            _activeUserCache = savedUser;
+            updateUserChip(savedUser);
+
+            // Восстанавливаем последний раздел
+            const lastSection = localStorage.getItem('saved_section') || 'theory';
+            if (typeof showSection === 'function') showSection(lastSection);
+
+            // Плеер/переводы — тоже подтянем
+            if (typeof loadVoiceEnabled === 'function') {
+                voiceEnabled = loadVoiceEnabled();
+            }
+            if (typeof loadMyDict === 'function') {
+                myDictionary = loadMyDict();
+                updateDictCounter();
+            }
+            if (typeof loadLearned === 'function') {
+                learnedWords = loadLearned();
+            }
+            return;   // ← picker НЕ показываем
+        }
+
+        // 3) Активного нет → показываем выбор
+        showUserPicker();
+    } catch (e) {
+        console.error('initUserSystem error:', e);
+        // Аварийно убираем оверлей, чтобы не заблокировать интерфейс
+        const overlay = document.getElementById('user-picker-overlay');
+        if (overlay) overlay.remove();
+        // Создаём дефолтного пользователя
+        try {
+            const id = addUser('Гость', '🦊', null, 'A1');
+            setActiveUser(id);
+        } catch (e2) {
+            console.error('Не удалось создать пользователя:', e2);
+            // Последний шанс — просто открыть теорию
+            if (typeof showSection === 'function') showSection('theory');
+        }
     }
-
-    // 2) Есть активный пользователь в localStorage → входим автоматически
-    const savedActiveId = localStorage.getItem(ACTIVE_USER_KEY);
-    const savedUser = savedActiveId ? users.find(u => u.id === savedActiveId) : null;
-
-    if (savedUser) {
-        _activeUserCache = savedUser;
-        updateUserChip(savedUser);
-
-        // Восстанавливаем последний раздел
-        const lastSection = localStorage.getItem('saved_section') || 'theory';
-        if (typeof showSection === 'function') showSection(lastSection);
-
-        // Плеер/переводы — тоже подтянем
-        if (typeof loadVoiceEnabled === 'function') {
-            voiceEnabled = loadVoiceEnabled();
-        }
-        if (typeof loadMyDict === 'function') {
-            myDictionary = loadMyDict();
-            updateDictCounter();
-        }
-        if (typeof loadLearned === 'function') {
-            learnedWords = loadLearned();
-        }
-        return;   // ← picker НЕ показываем
-    }
-
-    // 3) Активного нет → показываем выбор
-    showUserPicker();
 }
 
 /**
@@ -4928,11 +5020,11 @@ async function getTranslation(word) {
 
     // 0. Готовые фразы — самые точные
     const phraseTranslation = findPhraseTranslation(word);
-    if (phraseTranslation) {
-        translationCache[wordLower] = phraseTranslation;
-        localStorage.setItem('translation_' + wordLower, phraseTranslation);
-        return phraseTranslation;
-    }
+if (phraseTranslation) {
+    translationCache[wordLower] = phraseTranslation;
+    safeSetItem('translation_' + wordLower, phraseTranslation);
+    return phraseTranslation;
+}
 
     // 1. Словарь сокращений
     const normalizedWord = wordLower.replace(/[’‘`´]/g, "'");
@@ -11338,8 +11430,7 @@ function loadMyDict() {
 }
 
 function saveMyDict(dict) {
-    try { localStorage.setItem(MY_DICT_KEY, JSON.stringify(dict)); }
-    catch (e) { console.warn('Не удалось сохранить', e); }
+    safeSetItem(MY_DICT_KEY, JSON.stringify(dict));
 }
 
 let myDictionary = loadMyDict();
@@ -15899,6 +15990,39 @@ const words = (isAdultsSource || isMySource ||
                 background: linear-gradient(135deg, #999 0%, #BBB 100%);
                 box-shadow: 0 4px 12px rgba(150,150,150,0.3);
             }
+/* === МОБИЛЬНЫЕ: упрощаем флеш-карточки (на старых Android ломается preserve-3d) === */
+@media (max-width: 700px) {
+    .fc-scene {
+        perspective: none;
+        height: auto;
+        min-height: 320px;
+    }
+    .fc-card {
+        transform-style: flat;
+    }
+    .fc-card.flipped {
+        transform: none;
+    }
+    .fc-face {
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
+        position: relative;
+        display: none;
+    }
+    .fc-front {
+        display: flex;
+    }
+    .fc-back {
+        transform: none;
+        display: none;
+    }
+    .fc-card.flipped .fc-front {
+        display: none;
+    }
+    .fc-card.flipped .fc-back {
+        display: flex;
+    }
+}
 
         </style>
     `;
@@ -22038,6 +22162,13 @@ function finishNumbersLevel() {
 // ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ
 // ============================================================
 function showSection(sectionKey) {
+    // ▼ Чистим состояние филворда, чтобы его touch-обработчики не блокировали скролл
+    if (typeof wordSearchState !== 'undefined' && wordSearchState && wordSearchState._cleanup) {
+        wordSearchState._cleanup();
+        wordSearchState = null;
+    }
+    // ▲ Конец вставки
+
     if (sectionKey !== 'listening') {
         if (typeof cleanupListeningHotkeys === 'function') cleanupListeningHotkeys();
         if (typeof lsStopPlayer === 'function') lsStopPlayer();
@@ -22048,7 +22179,13 @@ function showSection(sectionKey) {
         if (typeof lsArrangeState !== 'undefined') lsArrangeState = null;
         if (typeof lsPlayer !== 'undefined' && lsPlayer) lsPlayer.onUpdateUI = null;
     }
-    localStorage.setItem('saved_section', sectionKey);
+
+    try {
+        localStorage.setItem('saved_section', sectionKey);
+    } catch (e) {
+        console.warn('Не удалось сохранить раздел:', e);
+    }
+
     if (sectionKey === 'speaking') { renderSpeakingSection(); return; }
     if (sectionKey === 'theory') { renderTheorySection(); return; }
     if (sectionKey === 'profile') { renderProfileSection(); return; }
@@ -22118,9 +22255,10 @@ document.addEventListener('scroll', () => {
 
 const voiceSupport = {
     supported: !!(window.SpeechRecognition || window.webkitSpeechRecognition),
-    secure: (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+    secure: (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1'),
+    // iOS Safari часто «поддерживает» webkitSpeechRecognition, но реально не работает
+    iosBlocked: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 };
-
 function loadVoiceEnabled() {
     const raw = localStorage.getItem(VOICE_KEY);
     return raw === null ? true : raw === '1';
@@ -22129,6 +22267,7 @@ function saveVoiceEnabled(v) { localStorage.setItem(VOICE_KEY, v ? '1' : '0'); }
 voiceEnabled = loadVoiceEnabled();       // ← СТАЛО: просто присваивание
 
 function voiceAvailable() {
+    if (voiceSupport.iosBlocked) return false;  // На iOS не показываем
     return voiceEnabled && voiceSupport.supported && voiceSupport.secure;
 }
 
@@ -22561,7 +22700,12 @@ document.addEventListener('mouseup', (e) => {
 // ============================================================
 // ЗАПУСК СИСТЕМЫ ПОЛЬЗОВАТЕЛЕЙ
 // ============================================================
-initUserSystem();
+// Глобальный перехват ошибок — чтобы приложение не «зависало» молча
+window.addEventListener('error', (e) => {
+    console.error('Global error:', e.message, e.filename, e.lineno);
+});
+
+// Запуск системы пользователей
 initUserSystem();
 // ============================================================
 // РАЗДЕЛ «АУДИРОВАНИЕ»
