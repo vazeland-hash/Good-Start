@@ -2776,6 +2776,7 @@ if (typeof window.SPEAKING_SHADOWING === 'undefined') {
 // ============================================================
 // ГОЛОСОВОЙ ВВОД — ЗАГРУЗКА НАСТРОЕК (ДО ВСЕХ ИСПОЛЬЗОВАНИЙ!)
 // ============================================================
+const VOICE_KEY = 'goodStart_voiceEnabled';
 function loadVoiceEnabled() {
     try {
         const raw = localStorage.getItem('goodStart_voiceEnabled');
@@ -2867,7 +2868,6 @@ const USERS_LIST_KEY  = 'goodStart_users';
 const PICKER_SEEN_KEY = 'goodStart_pickerSeen';
 const ACTIVE_USER_KEY = 'goodStart_activeUser';
 const MIGRATION_FLAG  = 'goodStart_migrated_v1';
-const VOICE_KEY       = 'goodStart_voiceEnabled';   // ← добавили
 const AVATAR_CHOICES  = ['🦁','🐼','🦊','🐸','🐙','🦄','🐶','🐱','🐨','🐯','🦉','🐰'];
 
 function loadUsers() {
