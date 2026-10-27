@@ -2778,6 +2778,13 @@ if (typeof window.SPEAKING_SHADOWING === 'undefined') {
 // Безопасное экранирование строки для вставки в HTML-атрибут
 function escapeAttr(s) {
     return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+} 
+
 // ============================================================
 // БЕЗОПАСНАЯ ЗАПИСЬ В localStorage (защита от QuotaExceededError)
 // ============================================================
