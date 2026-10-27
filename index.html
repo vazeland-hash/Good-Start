@@ -2779,7 +2779,7 @@ if (typeof window.SPEAKING_SHADOWING === 'undefined') {
 const VOICE_KEY = 'goodStart_voiceEnabled';
 function loadVoiceEnabled() {
     try {
-        const raw = localStorage.getItem('goodStart_voiceEnabled');
+        const raw = localStorage.getItem(VOICE_KEY);
         return raw === null ? true : raw === '1';
     } catch (e) {
         return true;
@@ -22290,10 +22290,7 @@ const voiceSupport = {
     // iOS Safari часто «поддерживает» webkitSpeechRecognition, но реально не работает
     iosBlocked: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 };
-function loadVoiceEnabled() {
-    const raw = localStorage.getItem(VOICE_KEY);
-    return raw === null ? true : raw === '1';
-}
+
 function saveVoiceEnabled(v) { localStorage.setItem(VOICE_KEY, v ? '1' : '0'); }
 voiceEnabled = loadVoiceEnabled();       // ← СТАЛО: просто присваивание
 
