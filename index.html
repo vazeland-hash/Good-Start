@@ -3161,7 +3161,7 @@ function showCreateProfileScreen() {
         const name = nameInput.value.trim();
         if (!name) { nameInput.focus(); return; }
         overlay.remove();
-        openCreateUserModalPrefilled(name);   // ← новая функция, см. правку 5
+         openCreateUserModal(name);
     }
 
     document.getElementById('create-continue-btn').addEventListener('click', goToDetails);
@@ -3169,12 +3169,17 @@ function showCreateProfileScreen() {
         if (e.key === 'Enter') goToDetails();
     });
 }
-
 function renderUserTiles() {
     const grid = document.getElementById('user-picker-grid');
     if (!grid) return;
     const users = loadUsers();
-    const activeId = localStorage.getItem(ACTIVE_USER_KEY);
+    let activeId = localStorage.getItem(ACTIVE_USER_KEY);
+    if (!users.some(u => u.id === activeId)) {
+        activeId = users[0]?.id || null;
+        if (activeId) {
+            localStorage.setItem(ACTIVE_USER_KEY, activeId);
+        }
+    }
     grid.innerHTML = users.map(u => {
     const avatarHtml = u.photo
         ? `<img class="u-photo" src="${escapeAttr(u.photo)}" alt="">`
@@ -3686,7 +3691,17 @@ function getTotalTheoryCount(level) {
     return 6; // fallback
 }
 function renderProfileSection() {
-if (!getActiveUser()) { showCreateProfileScreen(); return; }
+    const _u = getActiveUser();
+    if (!_u) {
+        const _allUsers = loadUsers();
+        if (_allUsers.length > 0) {
+            localStorage.setItem(ACTIVE_USER_KEY, _allUsers[0].id);
+            invalidateActiveUserCache();
+            return renderProfileSection();
+        }
+        showCreateProfileScreen();
+        return;
+    }
     closeSidebar();
     sidebarToggle.classList.remove('visible');
     hideTooltip();
@@ -4793,9 +4808,14 @@ function initUserSystem() {
             return;
         }
 
-        // 2) Есть активный пользователь в localStorage → входим автоматически
+               // 2) Есть активный пользователь в localStorage → входим автоматически
         const savedActiveId = localStorage.getItem(ACTIVE_USER_KEY);
-        const savedUser = savedActiveId ? users.find(u => u.id === savedActiveId) : null;
+        let savedUser = savedActiveId ? users.find(u => u.id === savedActiveId) : null;
+
+        if (!savedUser && users.length > 0) {
+            savedUser = users[0];
+            localStorage.setItem(ACTIVE_USER_KEY, savedUser.id);
+        }
 
         if (savedUser) {
             _activeUserCache = savedUser;
