@@ -2774,6 +2774,25 @@ if (typeof window.SPEAKING_SHADOWING === 'undefined') {
     window.SPEAKING_SHADOWING = [];
 }
 // ============================================================
+// ГОЛОСОВОЙ ВВОД — ЗАГРУЗКА НАСТРОЕК (ДО ВСЕХ ИСПОЛЬЗОВАНИЙ!)
+// ============================================================
+function loadVoiceEnabled() {
+    try {
+        const raw = localStorage.getItem('goodStart_voiceEnabled');
+        return raw === null ? true : raw === '1';
+    } catch (e) {
+        return true;
+    }
+}
+
+function saveVoiceEnabled(v) {
+    try {
+        localStorage.setItem('goodStart_voiceEnabled', v ? '1' : '0');
+    } catch (e) {}
+}
+
+let voiceEnabled = loadVoiceEnabled();
+// ============================================================
 
 // Безопасное экранирование строки для вставки в HTML-атрибут
 function escapeAttr(s) {
@@ -2883,12 +2902,6 @@ function saveUsers(list) {
 }
 
 let _activeUserCache = null;
-// Предварительное объявление. Реальное значение установится ниже,
-// когда выполнится блок инициализации голосовых настроек.
-// Нужно, чтобы setActiveUser мог безопасно обращаться к voiceEnabled.
-// Безопасная инициализация: loadVoiceEnabled() объявлена ниже,
-// но function hoisted, поэтому вызов работает.
-let voiceEnabled = true;
 function getActiveUser() {
     if (_activeUserCache) return _activeUserCache;
     const users = loadUsers();
