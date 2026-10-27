@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<link rel="icon" href="data:,">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <title>Good Start — Учим английский</title>
@@ -2760,15 +2761,23 @@ body.dark-theme .theory-material-link {
 <script src="lib/pdf.min.js"></script>
 <script>
 
-// Безопасное экранирование строки для вставки в HTML-атрибут (двойные кавычки)
+// ============================================================
+// СТРАХОВКА ОТ ОШИБОК "BEFORE INITIALIZATION"
+// ============================================================
+if (typeof window.LS_LEVEL_ORDER === 'undefined') {
+    window.LS_LEVEL_ORDER = { A1: 0, A2: 1, B1: 2, B2: 3 };
+}
+if (typeof window.SPEAKING_TONGUE_TWISTERS === 'undefined') {
+    window.SPEAKING_TONGUE_TWISTERS = [];
+}
+if (typeof window.SPEAKING_SHADOWING === 'undefined') {
+    window.SPEAKING_SHADOWING = [];
+}
+// ============================================================
+
+// Безопасное экранирование строки для вставки в HTML-атрибут
 function escapeAttr(s) {
     return String(s)
-        .replace(/&/g,  '&amp;')
-        .replace(/"/g,  '&quot;')
-        .replace(/'/g,  '&#39;')
-        .replace(/</g,  '&lt;')
-        .replace(/>/g,  '&gt;');
-}
 // ============================================================
 // БЕЗОПАСНАЯ ЗАПИСЬ В localStorage (защита от QuotaExceededError)
 // ============================================================
@@ -3026,11 +3035,13 @@ let _nativeSetItem, _nativeGetItem, _nativeRemoveItem;
         return true;
     }
 
-    function prefixed(key) {
-        if (!shouldPrefix(key)) return key;
-        const active = getActiveUser();
-        return 'u:' + active.id + ':' + key;
-    }
+function prefixed(key) {
+    if (!shouldPrefix(key)) return key;
+    const active = getActiveUser();
+    // Если пользователя нет, используем 'guest' как временный ID
+    const userId = active ? active.id : 'guest'; 
+    return 'u:' + userId + ':' + key;
+}
 
     Storage.prototype.setItem = function(key, value) {
         return _nativeSetItem.call(this, prefixed(key), value);
@@ -22550,13 +22561,13 @@ let globalWordPopup = null;
 let globalPopupOutsideHandler = null;
 
 function closeGlobalWordPopup() {
-    if (globalWordPopup) {
-        globalWordPopup.remove();
-        globalWordPopup = null;
-    }
-    if (globalPopupOutsideHandler) {
-        document.removeEventListener('click', globalPopupOutsideHandler);
-        globalPopupOutsideHandler = null;
+    try {
+        if (typeof globalWordPopup !== 'undefined' && globalWordPopup) {
+            globalWordPopup.remove();
+            globalWordPopup = null;
+        }
+    } catch (e) {
+        console.warn('closeGlobalWordPopup: попап ещё не создан');
     }
 }
 
@@ -26553,6 +26564,11 @@ function startDescribePictureGame() {
 }
 
 function startShadowingGame() {
+   // ЗАЩИТА: если данные не загрузились — не роняем сайт
+    if (typeof SPEAKING_SHADOWING === 'undefined' || !Array.isArray(SPEAKING_SHADOWING) || SPEAKING_SHADOWING.length === 0) {
+        alert('Данные для shadowing ещё загружаются. Попробуй чуть позже.');
+        return;
+    }
     const userLevel = getUserLevel();
     const pool = SPEAKING_SHADOWING[userLevel] || SPEAKING_SHADOWING.A1;
     const queue = sgShuffle(pool).slice(0, 8);
@@ -26625,6 +26641,11 @@ function startShadowingGame() {
 }
 
 function startTongueTwisterGame() {
+    // ЗАЩИТА: если данные не загрузились — не роняем сайт
+    if (typeof SPEAKING_TONGUE_TWISTERS === 'undefined' || !Array.isArray(SPEAKING_TONGUE_TWISTERS) || SPEAKING_TONGUE_TWISTERS.length === 0) {
+        alert('Данные для скороговорок ещё загружаются. Попробуй чуть позже.');
+        return;
+    }
     const userLevel = getUserLevel();
     const pool = SPEAKING_TONGUE_TWISTERS.filter(t => t.level === userLevel);
     const queue = sgShuffle(pool.length ? pool : SPEAKING_TONGUE_TWISTERS.filter(t => t.level === 'A1')).slice(0, 6);
